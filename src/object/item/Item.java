@@ -1,3 +1,5 @@
+package object.item;
+
 public class Item {
     private String name;
     private int rank;
