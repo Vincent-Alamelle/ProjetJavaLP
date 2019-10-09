@@ -95,6 +95,7 @@ public class Quest {
     public void goOnQuest() {
         reward(getLvl());
         isChest();
+        questComplete();
     }
 
     public void questComplete() {
