@@ -1,5 +1,9 @@
 package object.quest;
+import init.Init;
 import object.chest.Chest;
+import object.monster.Monster;
+
+import java.util.ArrayList;
 
 public class Quest {
     private String name;
@@ -9,10 +13,57 @@ public class Quest {
     boolean chestFound = false;
     private Chest chest;
     private String rewardString;
+    private ArrayList<Monster> monsters = new ArrayList<>();
 
     public Quest(String name, int lvl) {
         this.name = name;
         this.lvl = lvl;
+        setMonsters();
+    }
+
+    public ArrayList<Monster> getMonsters() {
+        return monsters;
+    }
+
+    public void showMonsters(){
+        int counter1 = 1;
+        int counter2 = 0;
+        int counter3 = 0;
+        for (int i = 1; i < this.getMonsters().size(); ++i) {
+            if (this.getMonsters().get(0).equals(this.getMonsters().get(i)))
+                ++counter1;
+            else{
+                if (!this.getMonsters().get(0).equals(this.getMonsters().get(i))) {
+                    ++counter2;
+                    ++counter3;
+                }
+                else
+                    counter2 = 2;
+            }
+        }
+        if (counter1 == this.getMonsters().size())
+            System.out.println("Vous avez rencontré : " + counter1 + "x " + this.getMonsters().get(0).getType());
+        else if(counter1 == this.getMonsters().size()-1 && counter3 == 0)
+            System.out.println("Vous avez rencontré : x" + counter1 + this.getMonsters().get(0).getType() + ", x" +
+                    counter2 + this.getMonsters().get(0).getType() + ".");
+        else
+            System.out.println("Vous avez rencontré : x" + counter1 + this.getMonsters().get(0).getType() + ", x" +
+                counter2 + this.getMonsters().get(0).getType() + ", x" + counter3 + this.getMonsters().get(0).getType() + ".");
+    }
+
+    public void setMonsters() {
+        int compteur = 3;
+        ArrayList<Monster> potentialMonsters = new ArrayList<>();
+        for (int i = 0; i < Init.monsters.size(); ++i) {
+            if (Init.monsters.get(i).getRank() == this.getLvl()){
+                potentialMonsters.add(Init.monsters.get(i));
+            }
+        }
+        while (compteur != 0){
+            double rand = 1+ (Math.random() * ((potentialMonsters.size()-1)-1));
+            this.getMonsters().add(potentialMonsters.get((int)rand));
+            --compteur;
+        }
     }
 
     public String getName() {
@@ -79,7 +130,7 @@ public class Quest {
         if (Double.compare(randChest, 11*getLvl()) < 0) {
             double randChestTemp = 1 + (Math.random() * (5 - 1));
             int randChestRank = (int) randChestTemp;
-            this.setChest(new Chest(Math.round(randChestRank)));
+            this.setChest(new Chest(randChestRank));
             setChestFound(true);
         }
         else {
@@ -102,10 +153,9 @@ public class Quest {
 
         rewardString = "Tu as gagné " + this.getXp() + " points d'xp\nAinsi que " + this.getGold() + " pièces d'or";
         if (isChestFound()) {
-            System.out.println(this.getChest().getRank());
             rewardString = rewardString + "\nWow tu as été craiment chanceux; tu as obtenu un coffre de rang " + this.getChest().getRank();
         }
-
+        showMonsters();
         System.out.println(rewardString);
     }
 }
