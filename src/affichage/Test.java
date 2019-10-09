@@ -1,44 +1,61 @@
 package affichage;
 
-import object.monster.Monster;
 import init.Init;
-import constante.ConstanteInt;
 import object.quest.Quest;
 
 import java.util.Scanner;
 
 public class Test {
+    private static Scanner sc = new Scanner(System.in);
     public static void main(String[] args){
         //menu();
-        System.out.println("Bienvenue à toi jeune héros !");
-        System.out.println("Que souhaites-tu faire ?");
-        System.out.println("1. Partir pour une quête de niveau 1");
-        Scanner sc = new Scanner(System.in);
-        int choice = sc.nextInt();
-        switch (choice){
-            case 1:
-                Quest questlvl1 = new Quest("Une petite promenande", 1);
-                System.out.println("souhaitez vous partir pour la quête : " + questlvl1.getName() + " ?");
+        Init.initialise();
+        System.out.println("\n¤¤Bienvenue à toi jeune héros¤¤");
 
-                questlvl1.goOnQuest();
-                break;
-            case 2:
-                Quest questlvl2 = new Quest("Une plus grande promenade", 2);
-                questlvl2.goOnQuest();
-                break;
-            case 55:
-                Init.Initialise();
-                System.out.println(Init.dragonet);
-                System.out.println(Init.succubus);
-                System.out.println(Init.slime);
-                break;
+
+
+
+        while (true){
+            System.out.println("Que souhaites-tu faire ?");
+            System.out.println("\n0. Fermer le jeu\n\n1. Partir pour une quête\n2. Autel d'invocation");
+            int choice = sc.nextInt();
+            switch (choice){
+                case 0:
+                    System.out.println("Fermer le jeu");
+                    System.exit(1);
+                    break;
+
+                case 1:
+                    int difficulty = questDifficulty();
+                    Quest quest = new Quest("Quête lvl " + difficulty, difficulty);
+                    System.out.println("Souhaitez vous partir pour une quête de niveau " + quest.getLvl() + " ?\n" + "1. Oui \t 2. Non");
+                    int valid = sc.nextInt();
+                    if (valid == 1){
+                        System.out.println("Départ pour la quête !\n");
+                        quest.goOnQuest();
+                        System.out.println("\n");
+                    }
+                    break;
+
+                case 2:
+                    System.out.println("L'autel d'invocation n'est pas encore disponible\n");
+                    break;
+
+                case 55:
+                    Init.initialise();
+                    System.out.println(Init.dragonet);
+                    System.out.println(Init.succubus);
+                    System.out.println(Init.slime);
+                    break;
+            }
+
         }
+
     }
 
-    private static int validation(){
-        Scanner sc = new Scanner(System.in);
-        int choice = sc.nextInt();
-        return choice;
+    private static int questDifficulty(){
+        System.out.println("Choisissez la difficulté de votre quête : \n 1. Niveau 1 \t 2. Niveau 2 \t 3. Niveau 3 \t 4. Niveau 4 \t 5. Niveau 5");
+        return sc.nextInt();
     }
 
     /*private static void menu(){
