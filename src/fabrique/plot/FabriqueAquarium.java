@@ -1,11 +1,11 @@
 package fabrique.plot;
 
 import object.plot.Aquarium;
-import object.plot.Enclos;
+import object.plot.Plot;
 
 public class FabriqueAquarium extends FabriqueEnclos {
     @Override
-    protected Enclos createEnclos() {
+    protected Plot createEnclos() {
         return new Aquarium();
     }
 }

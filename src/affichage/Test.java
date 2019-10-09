@@ -1,6 +1,7 @@
 package affichage;
 
 import init.Init;
+import object.player.Player;
 import object.quest.Quest;
 
 import java.util.Scanner;
@@ -8,12 +9,15 @@ import java.util.Scanner;
 public class Test {
     private static Scanner sc = new Scanner(System.in);
     public static void main(String[] args){
-        //menu();
         Init.initialise();
+        Player player = new Player();
+        int count = 0;
+        player.addFragmentStone(5*3);
+        while (count < 3){
+            player.summon();
+            ++count;
+        }
         System.out.println("\n¤¤Bienvenue à toi jeune héros¤¤");
-
-
-
 
         while (true){
             System.out.println("Que souhaites-tu faire ?");
@@ -24,7 +28,6 @@ public class Test {
                     System.out.println("Fermer le jeu");
                     System.exit(1);
                     break;
-
                 case 1:
                     int difficulty = questDifficulty();
                     Quest quest = new Quest("Quête lvl " + difficulty, difficulty);
@@ -32,6 +35,7 @@ public class Test {
                     int valid = sc.nextInt();
                     if (valid == 1){
                         System.out.println("Départ pour la quête !\n");
+                        quest.setPlayerMonsters(player.getMonsters());
                         quest.goOnQuest();
                         System.out.println("\n");
                     }

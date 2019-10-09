@@ -29,6 +29,13 @@ public class Player {
             this.getMonsters().add(Utils.getMonsterRandomly(Utils.getMonsterByRank(2)));
         else if(Double.compare(rand,ConstanteDouble.DROP_RATE_RANK1.getValeur()) < 0)
             this.getMonsters().add(Utils.getMonsterRandomly(Utils.getMonsterByRank(1)));
+        this.getMonsters().get(this.getMonsters().size()-1).setPlayer();
+    }
+
+    public void showMonsters(){
+        for (int i = 0; i < this.getMonsters().size(); ++i) {
+            System.out.println(this.getMonsters().get(i));
+        }
     }
 
     public void addFragmentStone(int amount){

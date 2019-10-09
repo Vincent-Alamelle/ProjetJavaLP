@@ -1,11 +1,11 @@
 package fabrique.plot;
 
-import object.plot.Enclos;
+import object.plot.Plot;
 
 public abstract class FabriqueEnclos {
-    public Enclos getEnclos(){
+    public Plot getEnclos(){
         return createEnclos();
     }
 
-    protected abstract Enclos createEnclos();
+    protected abstract Plot createEnclos();
 }

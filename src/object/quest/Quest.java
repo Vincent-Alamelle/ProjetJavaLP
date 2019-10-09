@@ -15,6 +15,7 @@ public class Quest {
     private Chest chest;
     private String rewardString;
     private ArrayList<Monster> monsters = new ArrayList<>();
+    private ArrayList<Monster> playerMonsters = new ArrayList<>();
 
     public Quest(String name, int lvl) {
         this.name = name;
@@ -51,6 +52,7 @@ public class Quest {
             System.out.println("Vous avez rencontré : x" + counter1 + this.getMonsters().get(0).getType() + ", x" +
                 counter2 + this.getMonsters().get(0).getType() + ", x" + counter3 + this.getMonsters().get(0).getType() + ".");
     }
+
 
     public void setMonsters() {
         int counter = 3;
@@ -108,6 +110,14 @@ public class Quest {
         this.chestFound = chestFound;
     }
 
+    public void setPlayerMonsters(ArrayList<Monster> monsters){
+        this.playerMonsters = monsters;
+    }
+
+    public ArrayList<Monster> getPlayerMonsters() {
+        return playerMonsters;
+    }
+
     @Override
     public String toString() {
         return "Quest{" +
@@ -140,6 +150,8 @@ public class Quest {
     public void goOnQuest() {
         reward(getLvl());
         isChest();
+        showMonsters();
+        Utils.fight(this.getPlayerMonsters(),this.getMonsters());
         questComplete();
     }
 
@@ -149,7 +161,6 @@ public class Quest {
         if (isChestFound()) {
             rewardString = rewardString + "\nWow tu as été craiment chanceux; tu as obtenu un coffre de rang " + this.getChest().getRank();
         }
-        showMonsters();
         System.out.println(rewardString);
     }
 }

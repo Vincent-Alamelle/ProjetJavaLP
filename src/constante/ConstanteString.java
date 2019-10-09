@@ -2,9 +2,13 @@ package constante;
 
 public enum ConstanteString {
     DEMON ("Demon"),
+    SATYR ("Satyr"),
+    CABIRE ("Cabire"),
+    SUCCUBUS ("Succubus"),
     BEAST ("Beast"),
     SLIME ("Slime"),
-    DRAKE ("Drake");
+    DRAKE ("Drake"),
+    DRAGONET ("Dragonet");
 
     private String valeur = "";
 

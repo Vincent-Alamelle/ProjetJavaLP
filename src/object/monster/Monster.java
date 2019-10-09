@@ -1,10 +1,12 @@
 package object.monster;
 
 public abstract class Monster {
-    private String type;
-    private int healthMax, currentHealth, attack, defense, speed, level, experience, rank;
+    private String name,type;
+    private int healthMax, currentHealth, attack, defense, speed, turnBar, level, experience, rank;
+    private boolean isPlayer = false;
 
-    public Monster(String type, int healthMax, int attack, int defense, int speed, int level, int experience, int rank) {
+    public Monster(String name, String type, int healthMax, int attack, int defense, int speed, int level, int experience, int rank) {
+        this.name = name;
         this.type = type;
         this.healthMax = healthMax;
         this.currentHealth = healthMax;
@@ -14,6 +16,7 @@ public abstract class Monster {
         this.level = level;
         this.experience = experience;
         this.rank = rank;
+        this.turnBar = 0;
     }
 
     public Monster(){}
@@ -96,6 +99,26 @@ public abstract class Monster {
         setDefensebyLevelAndRank();
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public int getTurnBar() {
+        return turnBar;
+    }
+
+    public void setTurnBar(int turnBar) {
+        this.turnBar = turnBar;
+    }
+
+    public void setPlayer() {
+        isPlayer = true;
+    }
+
+    public boolean isPlayer() {
+        return isPlayer;
+    }
+
     public int getExperience() {
         return experience;
     }
@@ -106,7 +129,7 @@ public abstract class Monster {
 
     @Override
     public String toString() {
-        return "Monster{" +
+        return name +"{" +
                 "type='" + type + '\'' +
                 ", healthMax=" + healthMax +
                 ", currentHealth=" + currentHealth +

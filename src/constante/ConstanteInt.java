@@ -41,7 +41,8 @@ public enum ConstanteInt {
     SLIME_EXPERIENCE (0),
     SLIME_RANK (1),
 
-    SUMMON_COST (5);
+    SUMMON_COST (5),
+    MAX_SPEED (100);
 
     private int valeur = 0;
 
