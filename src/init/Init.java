@@ -14,7 +14,7 @@ public class Init {
     public static Monster dragonet;
     public static ArrayList<Monster> monsters = new ArrayList<>();
 
-    public static void Initialise(){
+    public static void initialise(){
         succubus = fabriqueSuccubus.getMonster();
         slime = fabriqueSlime.getMonster();
         dragonet = fabriqueDragonet.getMonster();
