@@ -3,6 +3,7 @@ package affichage;
 import object.monster.Monster;
 import init.Init;
 import constante.ConstanteInt;
+import object.player.Player;
 import object.quest.Quest;
 
 import java.util.Scanner;
@@ -10,6 +11,12 @@ import java.util.Scanner;
 public class Test {
     public static void main(String[] args){
         //menu();
+        Init.initialise();
+        Player player = new Player();
+        player.addFragmentStone(5);
+        player.summon();
+        System.out.println(player.getMonsters());
+        System.exit(0);
         System.out.println("Bienvenue à toi jeune héros !");
         System.out.println("Que souhaites-tu faire ?");
         System.out.println("1. Partir pour une quête de niveau 1");
@@ -27,7 +34,7 @@ public class Test {
                 questlvl2.goOnQuest();
                 break;
             case 55:
-                Init.Initialise();
+                Init.initialise();
                 System.out.println(Init.dragonet);
                 System.out.println(Init.succubus);
                 System.out.println(Init.slime);

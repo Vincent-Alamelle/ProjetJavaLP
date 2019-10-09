@@ -1,12 +1,10 @@
 package object.plot;
 
-import constante.ConstanteInt;
-import constante.ConstanteString;
 import object.monster.Monster;
 
 import java.util.ArrayList;
 
-public class Aquarium extends Enclos {
+public class Aquarium extends Plot {
     private double depth, salinity;
 
     public Aquarium(String name, String cleanliness, double area, int nbMax, int nbAnimals, ArrayList<Monster> animals, double depth, double salinity) {
