@@ -30,6 +30,7 @@ public class Player {
         else if(Double.compare(rand,ConstanteDouble.DROP_RATE_RANK1.getValeur()) < 0)
             this.getMonsters().add(Utils.getMonsterRandomly(Utils.getMonsterByRank(1)));
         this.getMonsters().get(this.getMonsters().size()-1).setPlayer();
+        System.out.println("Félécitations vous venez d'invoquer : " + this.getMonsters().get(this.getMonsters().size()-1));
     }
 
     public void showMonsters(){

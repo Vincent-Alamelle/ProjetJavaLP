@@ -31,5 +31,6 @@ public class Init {
         monsters.add(dragonet);
         monsters.add(satyr);
         monsters.add(cabire);
+        player.addFragmentStone(20);
     }
 }
