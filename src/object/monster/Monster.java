@@ -1,5 +1,7 @@
 package object.monster;
 
+import constante.ConstanteInt;
+
 public abstract class Monster {
     private String name,type;
     private int healthMax, currentHealth, attack, defense, speed, turnBar, level, experience, rank;
@@ -123,7 +125,16 @@ public abstract class Monster {
         return experience;
     }
 
-    public void setExperience(int experience) {
+    public void addExperience(int amount){
+        int total = this.getExperience()+amount;
+        if (total >= (ConstanteInt.MAX_XP_LVL.getValeur()*this.getLevel())){
+            this.setExperience(total-(ConstanteInt.MAX_XP_LVL.getValeur()*this.getLevel()));
+        }
+        else
+            this.setExperience(total);
+    }
+
+    private void setExperience(int experience) {
         this.experience = experience;
     }
 

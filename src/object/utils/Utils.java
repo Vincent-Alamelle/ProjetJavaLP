@@ -33,7 +33,7 @@ public class Utils {
         return null;
     }
 
-    public static void fight(ArrayList<Monster> playerMonster, ArrayList<Monster> mobs){
+    public static boolean fight(ArrayList<Monster> playerMonster, ArrayList<Monster> mobs){
         ArrayList<Monster> monsters = new ArrayList<>();
         monsters.addAll(playerMonster);
         monsters.addAll(mobs);
@@ -53,11 +53,9 @@ public class Utils {
                     }
                     else {
                         double rand = (Math.random() * playerMonster.size());
-                        System.out.println(playerMonster.get((int) rand));
                         monsters.get(i).attack(playerMonster.get((int) rand));
                         monsters.get(i).setTurnBar(0);
                         if (playerMonster.get((int) rand).getCurrentHealth() <= 0){
-                            System.out.println("un monstre du joueur est mort");
                             playerMonster.remove((int) rand);
                             monsters.remove(monsters.get(i));
                             if (playerMonster.size() == 0)
@@ -73,5 +71,9 @@ public class Utils {
             if (playerMonster.size() == 0 || mobs.size() == 0)
                 break;
         }
+        if (playerMonster.size() > 0)
+            return true;
+        else
+            return false;
     }
 }

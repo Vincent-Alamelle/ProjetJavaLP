@@ -10,11 +10,10 @@ public class Test {
     private static Scanner sc = new Scanner(System.in);
     public static void main(String[] args){
         Init.initialise();
-        Player player = new Player();
         int count = 0;
-        player.addFragmentStone(5*3);
+        Init.player.addFragmentStone(5*3);
         while (count < 3){
-            player.summon();
+            Init.player.summon();
             ++count;
         }
         System.out.println("\n¤¤Bienvenue à toi jeune héros¤¤");
@@ -35,7 +34,7 @@ public class Test {
                     int valid = sc.nextInt();
                     if (valid == 1){
                         System.out.println("Départ pour la quête !\n");
-                        quest.setPlayerMonsters(player.getMonsters());
+                        quest.setPlayerMonsters(Init.player.getMonsters());
                         quest.goOnQuest();
                         System.out.println("\n");
                     }
@@ -52,7 +51,7 @@ public class Test {
                     System.out.println(Init.slime);
                     break;
             }
-
+            Init.player.showMonsters();
         }
 
     }

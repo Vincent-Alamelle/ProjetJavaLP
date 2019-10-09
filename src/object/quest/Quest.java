@@ -128,7 +128,7 @@ public class Quest {
                 '}';
     }
 
-    public void isChest() {
+    private void isChest() {
         double randChest = 1 + (Math.random() * (100 - 1));
 
         if (Double.compare(randChest, 11*getLvl()) < 0) {
@@ -142,25 +142,35 @@ public class Quest {
         }
     }
 
-    public void reward(int lvl) {
+    private void reward(int lvl) {
         setGold(lvl + 10);
         setXp(lvl * 10);
+    }
+
+    private void giveReward(){
+        Init.player.addGold(this.getGold());
+        for (int i = 0; i < Init.player.getMonsters().size(); ++i) {
+            Init.player.getMonsters().get(i).addExperience(this.getXp());
+        }
     }
 
     public void goOnQuest() {
         reward(getLvl());
         isChest();
         showMonsters();
-        Utils.fight(this.getPlayerMonsters(),this.getMonsters());
-        questComplete();
+        if(Utils.fight(this.getPlayerMonsters(),this.getMonsters()))
+            questComplete();
+        else
+            System.out.println("Vous avez échoué votre quête :/");
     }
 
-    public void questComplete() {
+    private void questComplete() {
 
         rewardString = "Tu as gagné " + this.getXp() + " points d'xp\nAinsi que " + this.getGold() + " pièces d'or";
         if (isChestFound()) {
             rewardString = rewardString + "\nWow tu as été craiment chanceux; tu as obtenu un coffre de rang " + this.getChest().getRank();
         }
+        giveReward();
         System.out.println(rewardString);
     }
 }

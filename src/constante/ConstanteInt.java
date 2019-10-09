@@ -42,7 +42,9 @@ public enum ConstanteInt {
     SLIME_RANK (1),
 
     SUMMON_COST (5),
-    MAX_SPEED (100);
+    MAX_SPEED (100),
+
+    MAX_XP_LVL (100);
 
     private int valeur = 0;
 

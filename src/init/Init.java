@@ -2,6 +2,7 @@ package init;
 
 import fabrique.monstre.*;
 import object.monster.Monster;
+import object.player.Player;
 
 import java.util.ArrayList;
 
@@ -17,6 +18,7 @@ public class Init {
     public static Monster satyr;
     public static Monster cabire;
     public static ArrayList<Monster> monsters = new ArrayList<>();
+    public static Player player = new Player();
 
     public static void initialise(){
         succubus = fabriqueSuccubus.getMonster();
