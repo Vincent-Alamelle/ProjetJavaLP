@@ -2,6 +2,7 @@ package object.quest;
 import init.Init;
 import object.chest.Chest;
 import object.monster.Monster;
+import object.utils.Utils;
 
 import java.util.ArrayList;
 
@@ -52,17 +53,10 @@ public class Quest {
     }
 
     public void setMonsters() {
-        int compteur = 3;
-        ArrayList<Monster> potentialMonsters = new ArrayList<>();
-        for (int i = 0; i < Init.monsters.size(); ++i) {
-            if (Init.monsters.get(i).getRank() == this.getLvl()){
-                potentialMonsters.add(Init.monsters.get(i));
-            }
-        }
-        while (compteur != 0){
-            double rand = 1+ (Math.random() * ((potentialMonsters.size()-1)-1));
-            this.getMonsters().add(potentialMonsters.get((int)rand));
-            --compteur;
+        int counter = 3;
+        while (counter != 0){
+            this.getMonsters().add(Utils.getMonsterRandomly(Utils.getMonsterByRank(this.getLvl())));
+            --counter;
         }
     }
 

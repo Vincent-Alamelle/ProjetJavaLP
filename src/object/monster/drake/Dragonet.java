@@ -11,17 +11,17 @@ public class Dragonet extends Monster {
 
     @Override
     protected void setHealthbyLevelAndRank(){
-        setHealthMax(ConstanteInt.DRAGONNET_HEALTHMAX.getValeur() +(this.getLevel()*10*this.getRank()));
+        setHealthMax(ConstanteInt.DRAGONET_HEALTHMAX.getValeur() +(this.getLevel()*10*this.getRank()));
     }
 
     @Override
     protected void setAttackbyLevelAndRank() {
-        setAttack(ConstanteInt.DRAGONNET_ATTACK.getValeur() +(this.getLevel()*5*this.getRank()));
+        setAttack(ConstanteInt.DRAGONET_ATTACK.getValeur() +(this.getLevel()*5*this.getRank()));
     }
 
     @Override
     protected void setDefensebyLevelAndRank() {
-        setDefense(ConstanteInt.DRAGONNET_DEFENSE.getValeur() +(this.getLevel()*4*this.getRank()));
+        setDefense(ConstanteInt.DRAGONET_DEFENSE.getValeur() +(this.getLevel()*4*this.getRank()));
     }
 
     public Dragonet() {

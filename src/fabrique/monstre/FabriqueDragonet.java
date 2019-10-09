@@ -7,7 +7,7 @@ import object.monster.drake.Dragonet;
 public class FabriqueDragonet extends FabriqueMonstre {
     @Override
     protected Monster createMonster() {
-        return new Dragonet(ConstanteInt.DRAGONNET_HEALTHMAX.getValeur(), ConstanteInt.DRAGONNET_ATTACK.getValeur(), ConstanteInt.DRAGONNET_DEFENSE.getValeur(),
-                ConstanteInt.DRAGONNET_SPEED.getValeur(), ConstanteInt.DRAGONNET_LEVEL.getValeur(), ConstanteInt.DRAGONNET_EXPERIENCE.getValeur(), ConstanteInt.DRAGONNET_RANK.getValeur());
+        return new Dragonet(ConstanteInt.DRAGONET_HEALTHMAX.getValeur(), ConstanteInt.DRAGONET_ATTACK.getValeur(), ConstanteInt.DRAGONET_DEFENSE.getValeur(),
+                ConstanteInt.DRAGONET_SPEED.getValeur(), ConstanteInt.DRAGONET_LEVEL.getValeur(), ConstanteInt.DRAGONET_EXPERIENCE.getValeur(), ConstanteInt.DRAGONET_RANK.getValeur());
     }
 }

@@ -1,11 +1,10 @@
 package object.plot;
 
-import constante.ConstanteString;
 import object.monster.Monster;
 
 import java.util.ArrayList;
 
-public class Voliere extends Enclos {
+public class Voliere extends Plot {
     private int height;
 
     public Voliere(String name, String cleanliness, double area, int nbMax, int nbAnimals, ArrayList<Monster> animals, int height) {
