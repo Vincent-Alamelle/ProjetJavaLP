@@ -30,7 +30,7 @@ public class Player {
 
     public void showItems(){
         for (int i = 0; i < this.getItems().size(); ++i) {
-            System.out.println(i + ". " + this.getItems().get(i));
+            System.out.println(i+1 + ". " + this.getItems().get(i));
         }
     }
 

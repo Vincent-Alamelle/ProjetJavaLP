@@ -42,7 +42,7 @@ public class Test {
                     upItem();
                     break;
                 case 5:
-                    for (int i = 0; i < 50; ++i) {
+                    for (int i = 0; i < 2; ++i) {
                         Utils.obtenir("item");
                     }
                     Init.player.showItems();
@@ -102,6 +102,7 @@ public class Test {
         }
         System.out.println("Vous avez sélectionné cet objet :\n" + Init.player.getItems().get(item));
         System.out.println("Améliorer ? (cout: "+ ConstanteInt.ITEM_PRICE_UP.getValeur() * (Init.player.getItems().get(item).getLevel()+1) +")1. oui  2. non");
-        Init.player.getItems().get(item).lvlup();
+        if (sc.nextInt() == 1)
+            Init.player.getItems().get(item).lvlup();
     }
 }
