@@ -1,5 +1,6 @@
 package init;
 
+import fabrique.item.FabriqueItem;
 import fabrique.monstre.*;
 import object.monster.Monster;
 import object.player.Player;
@@ -12,6 +13,7 @@ public class Init {
     public static final FabriqueMonstre fabriqueSlime = new FabriqueSlime();
     public static final FabriqueMonstre fabriqueSatyr = new FabriqueSatyr();
     public static final FabriqueMonstre fabriqueCabire = new FabriqueCabire();
+    public static final FabriqueItem fabriqueItem = new FabriqueItem();
     public static Monster succubus;
     public static Monster slime;
     public static Monster dragonet;

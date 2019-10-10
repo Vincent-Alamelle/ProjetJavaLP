@@ -2,7 +2,6 @@ package object.player;
 
 import constante.ConstanteDouble;
 import constante.ConstanteInt;
-import init.Init;
 import object.item.Item;
 import object.monster.Monster;
 import object.plot.Plot;
@@ -18,17 +17,7 @@ public class Player {
 
     public void summon(){
         substractFragmentStone(ConstanteInt.SUMMON_COST.getValeur());
-        double rand = Math.random();
-        if (Double.compare(rand, ConstanteDouble.DROP_RATE_RANK5.getValeur()) < 0)
-            this.getMonsters().add(Utils.getMonsterRandomly(Utils.getMonsterByRank(5)));
-        else if (Double.compare(rand, ConstanteDouble.DROP_RATE_RANK4.getValeur()) < 0)
-            this.getMonsters().add(Utils.getMonsterRandomly(Utils.getMonsterByRank(4)));
-        else if (Double.compare(rand, ConstanteDouble.DROP_RATE_RANK3.getValeur()) < 0)
-            this.getMonsters().add(Utils.getMonsterRandomly(Utils.getMonsterByRank(3)));
-        else if(Double.compare(rand,ConstanteDouble.DROP_RATE_RANK2.getValeur()) < 0)
-            this.getMonsters().add(Utils.getMonsterRandomly(Utils.getMonsterByRank(2)));
-        else if(Double.compare(rand,ConstanteDouble.DROP_RATE_RANK1.getValeur()) < 0)
-            this.getMonsters().add(Utils.getMonsterRandomly(Utils.getMonsterByRank(1)));
+        Utils.obtenir("monster");
         this.getMonsters().get(this.getMonsters().size()-1).setPlayer();
         System.out.println("Félécitations vous venez d'invoquer : " + this.getMonsters().get(this.getMonsters().size()-1));
     }
@@ -36,6 +25,12 @@ public class Player {
     public void showMonsters(){
         for (int i = 0; i < this.getMonsters().size(); ++i) {
             System.out.println(this.getMonsters().get(i));
+        }
+    }
+
+    public void showItems(){
+        for (int i = 0; i < this.getItems().size(); ++i) {
+            System.out.println(i + ". " + this.getItems().get(i));
         }
     }
 

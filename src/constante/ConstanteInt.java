@@ -45,7 +45,15 @@ public enum ConstanteInt {
     MAX_SPEED (100),
 
     MAX_XP_LVL (100),
-    MAX_LVL_RANK1 (10);
+    MAX_LVL_RANK1 (10),
+
+    ITEM_ATTACK_UP (5),
+    ITEM_HEALTH_UP (10),
+    ITEM_DEFENSE_UP (3),
+    ITEM_SPEED_UP (1),
+    ITEM_CRIT_UP (2),
+    ITEM_MAX_LVL (10),
+    ITEM_PRICE_UP (150);
 
 
     private int valeur = 0;

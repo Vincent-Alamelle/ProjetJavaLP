@@ -5,6 +5,7 @@ import constante.ConstanteInt;
 public abstract class Monster {
     private String name,type;
     private int healthMax, currentHealth, attack, defense, speed, turnBar, level, experience, rank;
+    private double crit;
     private boolean isPlayer = false;
 
     public Monster(String name, String type, int healthMax, int attack, int defense, int speed, int level, int experience, int rank) {
@@ -13,6 +14,7 @@ public abstract class Monster {
         this.healthMax = healthMax;
         this.currentHealth = healthMax;
         this.attack = attack;
+        this.crit = 0.20;
         this.defense = defense;
         this.speed = speed;
         this.level = level;
@@ -24,7 +26,11 @@ public abstract class Monster {
     public Monster(){}
 
     public void attack(Monster monster){
-        monster.setCurrentHealth(monster.getCurrentHealth()-(this.getAttack()-monster.getDefense()));
+        double rand = (Math.random());
+        if (Double.compare(rand, this.getCrit()) < 0)
+            monster.setCurrentHealth((int) (monster.getCurrentHealth()-(this.getAttack()*1.5-monster.getDefense())));
+        else
+            monster.setCurrentHealth(monster.getCurrentHealth()-(this.getAttack()-monster.getDefense()));
     }
 
     protected abstract void setHealthbyLevelAndRank();
@@ -48,6 +54,14 @@ public abstract class Monster {
         setHealthbyLevelAndRank();
         setAttackbyLevelAndRank();
         setDefensebyLevelAndRank();
+    }
+
+    public void setCrit(double crit) {
+        this.crit = crit;
+    }
+
+    public double getCrit() {
+        return crit;
     }
 
     public String getType() {
