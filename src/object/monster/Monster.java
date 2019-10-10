@@ -126,12 +126,14 @@ public abstract class Monster {
     }
 
     public void addExperience(int amount){
-        int total = this.getExperience()+amount;
-        if (total >= (ConstanteInt.MAX_XP_LVL.getValeur()*this.getLevel())){
-            this.setExperience(total-(ConstanteInt.MAX_XP_LVL.getValeur()*this.getLevel()));
+        if (this.getLevel() < ConstanteInt.MAX_LVL_RANK1.getValeur() + (5*(this.getRank()-1))){
+            int total = this.getExperience()+amount;
+            if (total >= (ConstanteInt.MAX_XP_LVL.getValeur()*this.getLevel())){
+                this.setExperience(total-(ConstanteInt.MAX_XP_LVL.getValeur()*this.getLevel()));
+            }
+            else
+                this.setExperience(total);
         }
-        else
-            this.setExperience(total);
     }
 
     private void setExperience(int experience) {

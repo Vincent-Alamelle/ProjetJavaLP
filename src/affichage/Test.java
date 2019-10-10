@@ -20,7 +20,7 @@ public class Test {
                 System.out.println("Vous êtes nouveau ? Tenez nous vous offrons 20 fragments de pierre d'invocation, allez les utiliser dans l'autel d'invocation en tapant 2!");
             else {
                 System.out.println("\nQue souhaites-tu faire ?");
-                System.out.println("\n0. Fermer le jeu\n\n1. Partir pour une quête\n2. Autel d'invocation");
+                System.out.println("\n0. Fermer le jeu\n\n1. Partir pour une quête\n2. Autel d'invocation\n3. Afficher votre ménagerie");
             }
             int choice = sc.nextInt();
             switch (choice){
@@ -35,8 +35,7 @@ public class Test {
                 case 2: altarOfInvocation();
                     break;
 
-                case 55:
-
+                case 3: Init.player.showMonsters();
                     break;
             }
         }
