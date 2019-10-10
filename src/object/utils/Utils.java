@@ -100,8 +100,12 @@ public class Utils {
             if (playerMonster.size() == 0 || mobs.size() == 0)
                 break;
         }
-        if (playerMonster.size() > 0)
+        if (playerMonster.size() > 0){
+            for (int i = 0; i < playerMonster.size(); i++) {
+                System.out.println(playerMonster.get(i));
+            }
             return true;
+            }
         else
             return false;
     }

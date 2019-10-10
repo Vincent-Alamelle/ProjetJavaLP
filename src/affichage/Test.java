@@ -12,18 +12,19 @@ import java.util.Scanner;
 
 public class Test {
     private static Scanner sc = new Scanner(System.in);
+    private static int choice;
+
     public static void main(String[] args){
         Init.initialise();
         System.out.println("\n¤¤Bienvenue à toi jeune héros¤¤");
-
         while (true){
             if (Init.player.getMonsters().size() == 0)
-                System.out.println("Vous êtes nouveau ? Tenez nous vous offrons 20 fragments de pierre d'invocation, allez les utiliser dans l'autel d'invocation en tapant 2!");
+                System.out.println("Vous êtes nouveau ? Tenez, nous vous offrons 20 fragments de pierre d'invocation, allez les utiliser dans l'autel d'invocation en tapant 2!");
             else {
                 System.out.println("\nQue souhaites-tu faire ?");
                 System.out.println("\n0. Fermer le jeu\n\n1. Partir pour une quête\n2. Autel d'invocation\n3. Afficher votre ménagerie\n4. Améliorer un objet");
             }
-            int choice = sc.nextInt();
+            choice = sc.nextInt();
             switch (choice){
                 case 0:
                     System.out.println("Fermer le jeu");
@@ -38,14 +39,13 @@ public class Test {
 
                 case 3: Init.player.showMonsters();
                     break;
-                case 4:
-                    upItem();
+
+                case 4: upItem();
                     break;
-                case 5:
-                    for (int i = 0; i < 2; ++i) {
-                        Utils.obtenir("item");
-                    }
-                    Init.player.showItems();
+
+                case 5: Init.player.showItems();
+                    break;
+                default: break;
             }
         }
 
@@ -74,7 +74,13 @@ public class Test {
         System.out.println("Nombre d'invocations disponibles : " +Init.player.getNbFragmentStone()/ConstanteInt.SUMMON_COST.getValeur());
         System.out.println("Combien d'invocation voulez-vous réaliser ? (0. Retour)");
         int count = sc.nextInt();
-        while (count > 0){
+        if (Init.player.getGold() >= Init.player.getNbFragmentStone()/ConstanteInt.SUMMON_COST.getValeur() * count) {
+            while (count > 0) {
+                Init.player.summon();
+                --count;
+            }
+        }
+        while (count > 0) {
             Init.player.summon();
             --count;
         }
@@ -102,7 +108,12 @@ public class Test {
         }
         System.out.println("Vous avez sélectionné cet objet :\n" + Init.player.getItems().get(item));
         System.out.println("Améliorer ? (cout: "+ ConstanteInt.ITEM_PRICE_UP.getValeur() * (Init.player.getItems().get(item).getLevel()+1) +")1. oui  2. non");
-        if (sc.nextInt() == 1)
-            Init.player.getItems().get(item).lvlup();
+        if (sc.nextInt() == 1){
+            if (Init.player.getGold() >= ConstanteInt.ITEM_PRICE_UP.getValeur() * (Init.player.getItems().get(item).getLevel()+1))
+                Init.player.getItems().get(item).lvlup();
+            else
+                System.out.println("Vous n'avez pas assez de pièce d'or!");
+        }
+
     }
 }
