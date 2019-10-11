@@ -18,12 +18,8 @@ public class Test {
         Init.initialise();
         System.out.println("\n¤¤Bienvenue à toi jeune héros¤¤");
         while (true){
-            if (Init.player.getMonsters().size() == 0)
-                System.out.println("Vous êtes nouveau ? Tenez, nous vous offrons 20 fragments de pierre d'invocation, allez les utiliser dans l'autel d'invocation en tapant 2!");
-            else {
-                System.out.println("\nQue souhaites-tu faire ?");
-                System.out.println("\n0. Fermer le jeu\n\n1. Partir pour une quête\n2. Autel d'invocation\n3. Afficher votre ménagerie\n4. Améliorer un objet");
-            }
+            System.out.println("\nQue souhaites-tu faire ?");
+            System.out.println("\n0. Fermer le jeu\n\n1. Partir pour une quête\n2. Autel d'invocation\n3. Afficher votre ménagerie\n4. Améliorer un objet");
             choice = sc.nextInt();
             switch (choice){
                 case 0:
@@ -31,10 +27,21 @@ public class Test {
                     System.exit(1);
                     break;
 
-                case 1: quest();
+                case 1:
+                    if (Init.player.getMonsters().size() == 0){
+                        System.out.println("Vous ne possédez pas encore de monstre, allez faire un tour à l'autel d'invocation pour rencontrer vos premiers alliés");
+                    }
+                    else {
+                        quest();
+                    }
+
                     break;
 
-                case 2: altarOfInvocation();
+                case 2:
+                    if (Init.player.getMonsters().size() == 0) {
+                        System.out.println("Vous êtes nouveau ? Tenez, nous vous offrons 20 fragments de pierre d'invocation");
+                    }
+                    altarOfInvocation();
                     break;
 
                 case 3: Init.player.showMonsters();
@@ -45,6 +52,7 @@ public class Test {
 
                 case 5: Init.player.showItems();
                     break;
+
                 default: break;
             }
         }
@@ -102,18 +110,24 @@ public class Test {
     private static void upItem(){
         Init.player.showItems();
         int item= Init.player.getItems().size();
-        while (item >= Init.player.getItems().size()) {
-            System.out.println("Sélectionnez un objet à améliorer :");
-            item = sc.nextInt();
+        if (item <= 0) {
+            System.out.println("\nVous ne possédez pas d'objet à améliorer");
         }
-        System.out.println("Vous avez sélectionné cet objet :\n" + Init.player.getItems().get(item));
-        System.out.println("Améliorer ? (cout: "+ ConstanteInt.ITEM_PRICE_UP.getValeur() * (Init.player.getItems().get(item).getLevel()+1) +")1. oui  2. non");
-        if (sc.nextInt() == 1){
-            if (Init.player.getGold() >= ConstanteInt.ITEM_PRICE_UP.getValeur() * (Init.player.getItems().get(item).getLevel()+1))
-                Init.player.getItems().get(item).lvlup();
-            else
-                System.out.println("Vous n'avez pas assez de pièce d'or!");
+        else{
+            while (item >= Init.player.getItems().size()) {
+                System.out.println("Sélectionnez un objet à améliorer :");
+                item = sc.nextInt();
+            }
+            System.out.println("Vous avez sélectionné cet objet :\n" + Init.player.getItems().get(item));
+            System.out.println("Améliorer ? (cout: "+ ConstanteInt.ITEM_PRICE_UP.getValeur() * (Init.player.getItems().get(item).getLevel()+1) +")1. oui  2. non");
+            if (sc.nextInt() == 1){
+                if (Init.player.getGold() >= ConstanteInt.ITEM_PRICE_UP.getValeur() * (Init.player.getItems().get(item).getLevel()+1))
+                    Init.player.getItems().get(item).lvlup();
+                else
+                    System.out.println("Vous n'avez pas assez de pièce d'or!");
+            }
         }
-
     }
+
+
 }

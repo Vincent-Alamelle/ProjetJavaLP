@@ -172,5 +172,6 @@ public class Quest {
         }
         giveReward();
         System.out.println(rewardString);
+        Init.player.regenMonsters();
     }
 }
