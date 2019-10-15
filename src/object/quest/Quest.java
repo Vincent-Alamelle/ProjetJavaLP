@@ -32,15 +32,18 @@ public class Quest {
         int counter2 = 0;
         int counter3 = 0;
         for (int i = 1; i < this.getMonsters().size(); ++i) {
-            if (this.getMonsters().get(0).equals(this.getMonsters().get(i)))
+            if (this.getMonsters().get(0).getName().equals(this.getMonsters().get(i).getName()))
                 ++counter1;
             else{
-                if (!this.getMonsters().get(0).equals(this.getMonsters().get(i))) {
-                    ++counter2;
-                    ++counter3;
+                if(i != 1){
+                    if (this.getMonsters().get(1).getName().equals(this.getMonsters().get(i).getName())) {
+                        ++counter2;
+                    }
+                    else
+                        ++counter3;
                 }
                 else
-                    counter2 = 2;
+                    ++counter2;
             }
         }
         if (counter1 == this.getMonsters().size())

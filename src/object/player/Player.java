@@ -35,11 +35,9 @@ public class Player {
     }
 
     public void regenMonsters() {
-        System.out.println(this.getMonsters() + "\n");
         for (int i = 0; i < this.getMonsters().size() -1; i++) {
             this.getMonsters().get(i).setCurrentHealth(this.getMonsters().get(i).getHealthMax());
         }
-        System.out.println(this.getMonsters());
     }
 
     public void addFragmentStone(int amount){
