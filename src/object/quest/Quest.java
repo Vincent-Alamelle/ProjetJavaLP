@@ -20,9 +20,10 @@ public class Quest {
     private ArrayList<Monster> monsters = new ArrayList<>();
     private ArrayList<Monster> playerMonsters = new ArrayList<>();
 
-    public Quest(String name, int lvl) {
+    public Quest(String name, int lvl, int difficulty) {
         this.name = name;
         this.lvl = lvl;
+        this.difficulty = difficulty;
         setMonsters();
     }
 
@@ -252,4 +253,6 @@ public class Quest {
         giveReward();
         System.out.println(rewardString);
     }
+
+
 }

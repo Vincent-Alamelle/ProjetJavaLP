@@ -34,7 +34,6 @@ public class Test {
                     else {
                         quest();
                     }
-
                     break;
 
                 case 2:
@@ -56,11 +55,15 @@ public class Test {
                 default: break;
             }
         }
+    }
 
+    private static int questRank(){
+        System.out.println("Sur quelle île souhaitez-vous vous rendre ?\n1. Le bois perdu    2.La colline dorée    3.Le sanctuaire    4.Le void    5. ?");
+        return sc.nextInt();
     }
 
     private static int questDifficulty(){
-        System.out.println("Choisissez la difficulté de votre quête : \n 1. Niveau 1 \t 2. Niveau 2 \t 3. Niveau 3 \t 4. Niveau 4 \t 5. Niveau 5");
+        System.out.println("Quel niveau de difficulté souhaitez-vous affronter ?\n1   2   3   4   5   6   7   8   9");
         return sc.nextInt();
     }
 
@@ -95,16 +98,13 @@ public class Test {
     }
 
     private static void quest(){
+        int rank = questRank();
         int difficulty = questDifficulty();
-        Quest quest = new Quest("Quête lvl " + difficulty, difficulty);
-        System.out.println("Souhaitez vous partir pour une quête de niveau " + quest.getLvl() + " ?\n" + "1. Oui \t 2. Non");
-        int valid = sc.nextInt();
-        if (valid == 1){
-            System.out.println("Départ pour la quête !\n");
-            quest.setPlayerMonsters(chooseMonster());
-            quest.goOnQuest();
-            System.out.println("\n");
-        }
+        Quest quest = new Quest("Quête de rang " + rank, rank, difficulty);
+        System.out.println("Départ pour la quête !\n");
+        quest.setPlayerMonsters(chooseMonster());
+        quest.goOnQuest();
+        System.out.println("\n");
     }
 
     private static void upItem(){
