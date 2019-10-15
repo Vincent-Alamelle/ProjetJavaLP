@@ -7,8 +7,9 @@ public abstract class Monster {
     private int healthMax, currentHealth, attack, defense, speed, turnBar, level, experience, rank;
     private double crit;
     private boolean isPlayer = false;
+    private String element;
 
-    public Monster(String name, String type, int healthMax, int attack, int defense, int speed, int level, int experience, int rank) {
+    public Monster(String name, String type, int healthMax, int attack, int defense, int speed, int level, int experience, int rank, String element) {
         this.name = name;
         this.type = type;
         this.healthMax = healthMax;
@@ -21,16 +22,55 @@ public abstract class Monster {
         this.experience = experience;
         this.rank = rank;
         this.turnBar = 0;
+        this.element = element;
     }
 
     public Monster(){}
 
     public void attack(Monster monster){
+
+        switch (this.getElement()){
+            case "vent":
+                makeAttack("eau","terre",monster);
+                break;
+            case "eau":
+                makeAttack("feu","vent",monster);
+                break;
+            case "feu":
+                makeAttack("terre","eau",monster);
+                break;
+            case "terre":
+                makeAttack("vent","feu",monster);
+                break;
+        }
+    }
+
+    private void makeAttack(String strongElement, String weakElement, Monster monster){
         double rand = (Math.random());
-        if (Double.compare(rand, this.getCrit()) < 0)
-            monster.setCurrentHealth((int) (monster.getCurrentHealth()-(this.getAttack()*1.5-monster.getDefense())));
-        else
-            monster.setCurrentHealth(monster.getCurrentHealth()-(this.getAttack()-monster.getDefense()));
+        if (monster.getElement().equals(strongElement)){
+            if (!(((int) (this.getAttack()*1.25)) < monster.getDefense())) {
+                if (Double.compare(rand, this.getCrit()) < 0)
+                    monster.setCurrentHealth((int) (monster.getCurrentHealth() - (this.getAttack() * 1.5 * 1.25 - monster.getDefense())));
+                else
+                    monster.setCurrentHealth((int) (monster.getCurrentHealth() - (this.getAttack() * 1.25 - monster.getDefense())));
+            }
+        }
+        else if(monster.getElement().equals(weakElement)){
+            if (!(((int) (this.getAttack()*0.75)) < monster.getDefense())){
+                if (Double.compare(rand, this.getCrit()) < 0)
+                    monster.setCurrentHealth((int) (monster.getCurrentHealth()-(this.getAttack()*1.5*0.75-monster.getDefense())));
+                else
+                    monster.setCurrentHealth((int) (monster.getCurrentHealth()-(this.getAttack()*0.75-monster.getDefense())));
+            }
+        }
+        else{
+            if (!(this.getAttack() < monster.getDefense())){
+                if (Double.compare(rand, this.getCrit()) < 0)
+                    monster.setCurrentHealth((int) (monster.getCurrentHealth()-(this.getAttack()*1.5-monster.getDefense())));
+                else
+                    monster.setCurrentHealth(monster.getCurrentHealth()-(this.getAttack()-monster.getDefense()));
+            }
+        }
     }
 
     protected abstract void setHealthbyLevelAndRank();
@@ -51,6 +91,24 @@ public abstract class Monster {
 
     public void setRank(int rank) {
         this.rank = rank;
+        setHealthbyLevelAndRank();
+        setAttackbyLevelAndRank();
+        setDefensebyLevelAndRank();
+    }
+
+    public void addExperience(int amount){
+        if (this.getLevel() < ConstanteInt.MAX_LVL_RANK1.getValeur() + (5*(this.getRank()-1))){
+            int total = this.getExperience()+amount;
+            if (total >= (ConstanteInt.MAX_XP_LVL.getValeur()*this.getLevel())){
+                this.setExperience(total-(ConstanteInt.MAX_XP_LVL.getValeur()*this.getLevel()));
+            }
+            else
+                this.setExperience(total);
+        }
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
         setHealthbyLevelAndRank();
         setAttackbyLevelAndRank();
         setDefensebyLevelAndRank();
@@ -108,13 +166,6 @@ public abstract class Monster {
         return level;
     }
 
-    public void setLevel(int level) {
-        this.level = level;
-        setHealthbyLevelAndRank();
-        setAttackbyLevelAndRank();
-        setDefensebyLevelAndRank();
-    }
-
     public String getName() {
         return name;
     }
@@ -139,15 +190,8 @@ public abstract class Monster {
         return experience;
     }
 
-    public void addExperience(int amount){
-        if (this.getLevel() < ConstanteInt.MAX_LVL_RANK1.getValeur() + (5*(this.getRank()-1))){
-            int total = this.getExperience()+amount;
-            if (total >= (ConstanteInt.MAX_XP_LVL.getValeur()*this.getLevel())){
-                this.setExperience(total-(ConstanteInt.MAX_XP_LVL.getValeur()*this.getLevel()));
-            }
-            else
-                this.setExperience(total);
-        }
+    public String getElement() {
+        return element;
     }
 
     private void setExperience(int experience) {
