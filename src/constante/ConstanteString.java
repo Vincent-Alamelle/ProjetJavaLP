@@ -10,7 +10,7 @@ public enum ConstanteString {
     DRAKE ("Drake"),
     DRAGONET ("Dragonet");
 
-    private String valeur = "";
+    private String valeur;
 
     ConstanteString(String valeur){
         this.valeur = valeur;

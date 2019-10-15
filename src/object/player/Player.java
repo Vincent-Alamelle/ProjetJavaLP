@@ -1,10 +1,8 @@
 package object.player;
 
-import constante.ConstanteDouble;
 import constante.ConstanteInt;
 import object.item.Item;
 import object.monster.Monster;
-import object.plot.Plot;
 import object.utils.Utils;
 
 import java.util.ArrayList;
@@ -12,7 +10,6 @@ import java.util.ArrayList;
 public class Player {
     private int gold, nbFragmentStone;
     private ArrayList<Monster> monsters = new ArrayList<>();
-    private ArrayList<Plot> plots = new ArrayList<>();
     private ArrayList<Item> items = new ArrayList<>();
 
     public void summon(){
@@ -44,7 +41,7 @@ public class Player {
         this.setNbFragmentStone(this.getNbFragmentStone()+amount);
     }
 
-    public void substractFragmentStone(int amount){
+    private void substractFragmentStone(int amount){
         this.setNbFragmentStone(this.getNbFragmentStone()-amount);
     }
 
@@ -58,14 +55,6 @@ public class Player {
 
     public void addMonster(Monster monster){
         this.getMonsters().add(monster);
-    }
-
-    public void removeMonster(Monster monster){
-        this.getMonsters().remove(monster);
-    }
-
-    public void addPlot(Plot plot){
-        this.getPlots().add(plot);
     }
 
     public void addItem(Item item){
@@ -96,23 +85,7 @@ public class Player {
         return monsters;
     }
 
-    public void setMonsters(ArrayList<Monster> monsters) {
-        this.monsters = monsters;
-    }
-
-    public ArrayList<Plot> getPlots() {
-        return plots;
-    }
-
-    public void setPlots(ArrayList<Plot> plots) {
-        this.plots = plots;
-    }
-
     public ArrayList<Item> getItems() {
         return items;
-    }
-
-    public void setItems(ArrayList<Item> items) {
-        this.items = items;
     }
 }

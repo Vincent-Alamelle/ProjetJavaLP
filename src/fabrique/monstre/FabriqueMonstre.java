@@ -13,8 +13,6 @@ public abstract class FabriqueMonstre {
                 break;
             case 2: element = "eau";
                 break;
-            case 3: element = "terre";
-                break;
             default: element = "terre";
                 break;
         }

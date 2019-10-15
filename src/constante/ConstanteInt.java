@@ -67,7 +67,7 @@ public enum ConstanteInt {
     INVOCATIONSHARD_IN_CHEST (1);
 
 
-    private int valeur = 0;
+    private int valeur;
 
     ConstanteInt(int valeur){
         this.valeur = valeur;

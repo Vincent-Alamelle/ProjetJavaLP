@@ -14,25 +14,15 @@ public class Init {
     public static final FabriqueMonstre fabriqueSatyr = new FabriqueSatyr();
     public static final FabriqueMonstre fabriqueCabire = new FabriqueCabire();
     public static final FabriqueItem fabriqueItem = new FabriqueItem();
-    public static Monster succubus;
-    public static Monster slime;
-    public static Monster dragonet;
-    public static Monster satyr;
-    public static Monster cabire;
     public static ArrayList<Monster> monsters = new ArrayList<>();
     public static Player player = new Player();
 
     public static void initialise(){
-        succubus = fabriqueSuccubus.getMonster();
-        slime = fabriqueSlime.getMonster();
-        dragonet = fabriqueDragonet.getMonster();
-        satyr = fabriqueSatyr.getMonster();
-        cabire = fabriqueCabire.getMonster();
-        monsters.add(succubus);
-        monsters.add(slime);
-        monsters.add(dragonet);
-        monsters.add(satyr);
-        monsters.add(cabire);
+        monsters.add(fabriqueSuccubus.getMonster());
+        monsters.add(fabriqueSlime.getMonster());
+        monsters.add(fabriqueDragonet.getMonster());
+        monsters.add(fabriqueSatyr.getMonster());
+        monsters.add(fabriqueCabire.getMonster());
         player.addFragmentStone(20);
     }
 }

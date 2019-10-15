@@ -57,7 +57,7 @@ public class Item {
         return level;
     }
 
-    public void setLevel(int level) {
+    private void setLevel(int level) {
         this.level = level;
     }
 
@@ -65,7 +65,7 @@ public class Item {
         return critBoost;
     }
 
-    public void setCritBoost(int critBoost) {
+    private void setCritBoost(int critBoost) {
         this.critBoost = critBoost;
     }
 
@@ -73,7 +73,7 @@ public class Item {
         return attackBoost;
     }
 
-    public void setAttackBoost(int attackBoost) {
+    private void setAttackBoost(int attackBoost) {
         this.attackBoost = attackBoost;
     }
 
@@ -81,7 +81,7 @@ public class Item {
         return healthBoost;
     }
 
-    public void setHealthBoost(int healthBoost) {
+    private void setHealthBoost(int healthBoost) {
         this.healthBoost = healthBoost;
     }
 
@@ -89,7 +89,7 @@ public class Item {
         return defenseBoost;
     }
 
-    public void setDefenseBoost(int defenseBoost) {
+    private void setDefenseBoost(int defenseBoost) {
         this.defenseBoost = defenseBoost;
     }
 
@@ -97,16 +97,12 @@ public class Item {
         return speedBoost;
     }
 
-    public void setSpeedBoost(int speedBoost) {
+    private void setSpeedBoost(int speedBoost) {
         this.speedBoost = speedBoost;
     }
 
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public int getRank() {

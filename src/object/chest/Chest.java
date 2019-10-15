@@ -15,9 +15,7 @@ public class Chest {
         this.item = Init.fabriqueItem.getItem(this.getRank());
     }
 
-    public int getGold() {
-        return gold;
-    }
+    public int getGold() { return gold; }
     public int getInvocationShard() {
         return invocationShard;
     }

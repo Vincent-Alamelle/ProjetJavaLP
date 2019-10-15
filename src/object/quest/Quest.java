@@ -14,9 +14,8 @@ public class Quest {
     private int xp;
     private int gold;
     private int difficulty;
-    boolean chestFound = false;
+    private boolean chestFound = false;
     private Chest chest;
-    private String rewardString;
     private ArrayList<Monster> monsters = new ArrayList<>();
     private ArrayList<Monster> playerMonsters = new ArrayList<>();
 
@@ -27,11 +26,11 @@ public class Quest {
         setMonsters();
     }
 
-    public ArrayList<Monster> getMonsters() {
+    private ArrayList<Monster> getMonsters() {
         return monsters;
     }
 
-    public void showMonsters(){
+    private void showMonsters(){
         int counter1 = 1;
         int counter2 = 0;
         int counter3 = 0;
@@ -61,7 +60,7 @@ public class Quest {
     }
 
 
-    public void setMonsters() {
+    private void setMonsters() {
         int counter = 3;
         while (counter != 0){
             this.getMonsters().add(Utils.getMonsterRandomly(Utils.getMonsterByRank(this.getLvl())));
@@ -133,59 +132,43 @@ public class Quest {
         }
     }
 
-    public int getDifficulty() {
+    private int getDifficulty() {
         return difficulty;
     }
 
-    public void setDifficulty(int difficulty) {
-        this.difficulty = difficulty;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getLvl() {
+    private int getLvl() {
         return lvl;
     }
 
-    public void setLvl(int lvl) {
-        this.lvl = lvl;
-    }
-
-    public int getXp() {
+    private int getXp() {
         return xp;
     }
 
-    public void setXp(int xp) {
+    private void setXp(int xp) {
         this.xp = xp;
     }
 
-    public int getGold() {
+    private int getGold() {
         return gold;
     }
 
-    public void setGold(int gold) {
+    private void setGold(int gold) {
         this.gold = gold;
     }
 
-    public Chest getChest() {
+    private Chest getChest() {
         return chest;
     }
 
-    public void setChest(Chest chest) {
+    private void setChest(Chest chest) {
         this.chest = chest;
     }
 
-    public boolean isChestFound() {
+    private boolean isChestFound() {
         return chestFound;
     }
 
-    public void setChestFound(boolean chestFound) {
+    private void setChestFound(boolean chestFound) {
         this.chestFound = chestFound;
     }
 
@@ -193,7 +176,7 @@ public class Quest {
         this.playerMonsters = monsters;
     }
 
-    public ArrayList<Monster> getPlayerMonsters() {
+    private ArrayList<Monster> getPlayerMonsters() {
         return playerMonsters;
     }
 
@@ -251,7 +234,7 @@ public class Quest {
 
     private void questComplete() {
 
-        rewardString = "Tu as gagné " + this.getXp() + " points d'xp\nAinsi que " + this.getGold() + " pièces d'or";
+        String rewardString = "Tu as gagné " + this.getXp() + " points d'xp\nAinsi que " + this.getGold() + " pièces d'or";
         if (isChestFound()) {
             rewardString = rewardString + "\nWow tu as été craiment chanceux; tu as obtenu un coffre de rang " + this.getChest().getRank();
         }

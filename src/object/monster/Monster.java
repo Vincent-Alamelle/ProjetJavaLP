@@ -31,8 +31,6 @@ public abstract class Monster {
         this.items = new ArrayList<>(6);
     }
 
-    public Monster(){}
-
     public void attack(Monster monster){
 
         switch (this.getElement()){
@@ -197,20 +195,16 @@ public abstract class Monster {
         return rank;
     }
 
-    public void setCrit(double crit) {
+    private void setCrit(double crit) {
         this.crit = crit;
     }
 
-    public double getCrit() {
+    private double getCrit() {
         return crit;
     }
 
     public String getType() {
         return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public int getHealthMax() {
@@ -241,11 +235,11 @@ public abstract class Monster {
         return speed;
     }
 
-    public void setSpeed(int speed) {
+    private void setSpeed(int speed) {
         this.speed = speed;
     }
 
-    public int getLevel() {
+    private int getLevel() {
         return level;
     }
 
@@ -269,7 +263,7 @@ public abstract class Monster {
         return isPlayer;
     }
 
-    public int getExperience() {
+    private int getExperience() {
         return experience;
     }
 

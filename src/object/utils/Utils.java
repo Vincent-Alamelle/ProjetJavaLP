@@ -25,15 +25,15 @@ public class Utils {
         }
         else{
             if (Double.compare(rand, ConstanteDouble.DROP_RATE_RANK5.getValeur()) < 0)
-                Init.player.getMonsters().add(Utils.getMonsterRandomly(Utils.getMonsterByRank(5)));
+                Init.player.addMonster(Utils.getMonsterRandomly(Utils.getMonsterByRank(5)));
             else if (Double.compare(rand, ConstanteDouble.DROP_RATE_RANK4.getValeur()) < 0)
-                Init.player.getMonsters().add(Utils.getMonsterRandomly(Utils.getMonsterByRank(4)));
+                Init.player.addMonster(Utils.getMonsterRandomly(Utils.getMonsterByRank(4)));
             else if (Double.compare(rand, ConstanteDouble.DROP_RATE_RANK3.getValeur()) < 0)
-                Init.player.getMonsters().add(Utils.getMonsterRandomly(Utils.getMonsterByRank(3)));
+                Init.player.addMonster(Utils.getMonsterRandomly(Utils.getMonsterByRank(3)));
             else if(Double.compare(rand,ConstanteDouble.DROP_RATE_RANK2.getValeur()) < 0)
-                Init.player.getMonsters().add(Utils.getMonsterRandomly(Utils.getMonsterByRank(2)));
+                Init.player.addMonster(Utils.getMonsterRandomly(Utils.getMonsterByRank(2)));
             else if(Double.compare(rand,ConstanteDouble.DROP_RATE_RANK1.getValeur()) < 0)
-                Init.player.getMonsters().add(Utils.getMonsterRandomly(Utils.getMonsterByRank(1)));
+                Init.player.addMonster(Utils.getMonsterRandomly(Utils.getMonsterByRank(1)));
         }
     }
 
@@ -101,9 +101,8 @@ public class Utils {
                 break;
         }
         if (playerMonster.size() > 0){
-            for (int i = 0; i < playerMonster.size(); i++) {
-                System.out.println(playerMonster.get(i));
-            }
+            for (Monster monster : playerMonster)
+                System.out.println(monster);
             return true;
             }
         else
