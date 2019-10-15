@@ -202,6 +202,7 @@ public abstract class Monster {
     public String toString() {
         return name +"{" +
                 "type='" + type + '\'' +
+                ", element=" + element +
                 ", healthMax=" + healthMax +
                 ", currentHealth=" + currentHealth +
                 ", attack=" + attack +
