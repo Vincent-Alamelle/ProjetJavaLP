@@ -10,21 +10,6 @@ public class Cabire extends Monster {
         super(ConstanteString.CABIRE.toString(), ConstanteString.DEMON.toString(), healthMax, attack, defense, speed, level, experience, rank, element);
     }
 
-    @Override
-    protected void setHealthbyLevelAndRank(){
-        setHealthMax(ConstanteInt.CABIRE_HEALTHMAX.getValeur() +(this.getLevel()*10*this.getRank()));
-    }
-
-    @Override
-    protected void setAttackbyLevelAndRank() {
-        setAttack(ConstanteInt.CABIRE_ATTACK.getValeur() +(this.getLevel()*5*this.getRank()));
-    }
-
-    @Override
-    protected void setDefensebyLevelAndRank() {
-        setDefense(ConstanteInt.CABIRE_DEFENSE.getValeur() +(this.getLevel()*4*this.getRank()));
-    }
-
     public Cabire() {
     }
 }

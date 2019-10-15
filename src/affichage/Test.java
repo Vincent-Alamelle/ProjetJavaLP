@@ -52,6 +52,18 @@ public class Test {
                 case 5: Init.player.showItems();
                     break;
 
+                case 6:
+                    int count = 5;
+                    while (count > 0){
+                        Init.player.addItem(Init.fabriqueItem.getItem(3));
+                        Init.player.getMonsters().get(0).equip(Init.player.getItems().get(0));
+                        --count;
+                    }
+                    Init.player.showItems();
+                    System.out.println("affich stuff monstre");
+                    Init.player.getMonsters().get(0).showItems();
+                    break;
+
                 default: break;
             }
         }

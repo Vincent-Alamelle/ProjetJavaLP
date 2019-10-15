@@ -7,8 +7,10 @@ import object.monster.slime.Slime;
 public class FabriqueSlime extends FabriqueMonstre {
     @Override
     protected Monster createMonster(String element) {
-        return new Slime(ConstanteInt.SLIME_HEALTHMAX.getValeur(), ConstanteInt.SLIME_ATTACK.getValeur(), ConstanteInt.SLIME_DEFENSE.getValeur(),
+        Monster monster = new Slime(ConstanteInt.SLIME_HEALTHMAX.getValeur(), ConstanteInt.SLIME_ATTACK.getValeur(), ConstanteInt.SLIME_DEFENSE.getValeur(),
                 ConstanteInt.SLIME_SPEED.getValeur(), ConstanteInt.SLIME_LEVEL.getValeur(), ConstanteInt.SLIME_EXPERIENCE.getValeur(),
                 ConstanteInt.SLIME_RANK.getValeur(), element);
+        monster.setStatsByLevelAndRank();
+        return monster;
     }
 }

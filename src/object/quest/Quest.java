@@ -227,9 +227,14 @@ public class Quest {
     }
 
     private void giveReward(){
+        if (this.isChestFound()){
+            this.setGold(this.getGold() + this.getChest().getGold());
+            Init.player.addFragmentStone(this.getChest().getInvocationShard());
+            Init.player.addItem(this.getChest().getItem());
+        }
         Init.player.addGold(this.getGold());
-        for (int i = 0; i < Init.player.getMonsters().size(); ++i) {
-            Init.player.getMonsters().get(i).addExperience(this.getXp());
+        for (int i = 0; i < this.getPlayerMonsters().size(); ++i) {
+            this.getPlayerMonsters().get(i).addExperience(this.getXp());
         }
     }
 

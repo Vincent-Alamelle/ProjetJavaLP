@@ -11,16 +11,6 @@ public class Item {
     private int rank, level;
     private int attackBoost = 0, healthBoost = 0, defenseBoost = 0, speedBoost = 0, critBoost = 0;
 
-    public Item(String name, int rank, int attackBoost, int healthBoost, int defenseBoost, int speedBoost) {
-        this.name = name;
-        this.rank = rank;
-        this.attackBoost = attackBoost;
-        this.healthBoost = healthBoost;
-        this.defenseBoost = defenseBoost;
-        this.speedBoost = speedBoost;
-        this.level = 0;
-    }
-
     public Item(String name, int rank) {
         this.name = name;
         this.rank = rank;
@@ -129,8 +119,8 @@ public class Item {
 
     @Override
     public String toString() {
-        return  "name='" + name + '\'' +
-                "{ rank=" + rank +
+        return  name +
+                "{rank=" + rank +
                 ", attackBoost=" + attackBoost +
                 ", healthBoost=" + healthBoost +
                 ", defenseBoost=" + defenseBoost +

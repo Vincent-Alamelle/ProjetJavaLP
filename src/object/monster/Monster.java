@@ -1,6 +1,10 @@
 package object.monster;
 
 import constante.ConstanteInt;
+import init.Init;
+import object.item.Item;
+
+import java.util.ArrayList;
 
 public abstract class Monster {
     private String name,type;
@@ -8,11 +12,11 @@ public abstract class Monster {
     private double crit;
     private boolean isPlayer = false;
     private String element;
+    private ArrayList<Item> items;
 
     public Monster(String name, String type, int healthMax, int attack, int defense, int speed, int level, int experience, int rank, String element) {
         this.name = name;
         this.type = type;
-        this.healthMax = healthMax;
         this.currentHealth = healthMax;
         this.attack = attack;
         this.crit = 0.20;
@@ -23,6 +27,8 @@ public abstract class Monster {
         this.rank = rank;
         this.turnBar = 0;
         this.element = element;
+        this.healthMax = healthMax;
+        this.items = new ArrayList<>(6);
     }
 
     public Monster(){}
@@ -73,9 +79,111 @@ public abstract class Monster {
         }
     }
 
-    protected abstract void setHealthbyLevelAndRank();
-    protected abstract void setAttackbyLevelAndRank();
-    protected abstract void setDefensebyLevelAndRank();
+    public void setStatsByLevelAndRank(){
+        setHealthbyLevelAndRank();
+        setAttackbyLevelAndRank();
+        setDefensebyLevelAndRank();
+    }
+
+    private  void setHealthbyLevelAndRank(){
+        this.setHealthMax(this.getHealthMax() + (this.getLevel() * ConstanteInt.MONSTER_HEALTH_PER_LVL.getValeur() +
+                this.getRank() * ConstanteInt.MONSTER_HEALTH_PER_RANK.getValeur()));
+        this.setCurrentHealth(this.getHealthMax());
+    }
+    private  void setAttackbyLevelAndRank(){
+        this.setAttack(this.getAttack() + (this.getLevel() * ConstanteInt.MONSTER_ATTACK_PER_LVL.getValeur() +
+                this.getRank() * ConstanteInt.MONSTER_ATTACK_PER_RANK.getValeur()));
+    }
+    private  void setDefensebyLevelAndRank(){
+        this.setDefense(this.getDefense() + (this.getLevel() * ConstanteInt.MONSTER_DEFENSE_PER_LVL.getValeur() +
+                this.getRank() * ConstanteInt.MONSTER_DEFENSE_PER_RANK.getValeur()));
+    }
+
+    public void addExperience(int amount){
+        if (this.getLevel() < ConstanteInt.MAX_LVL_RANK1.getValeur() + (5*(this.getRank()-1))){
+            int total = this.getExperience()+amount;
+            if (total >= (ConstanteInt.MAX_XP_LVL.getValeur()*this.getLevel())){
+                lvlUp();
+                this.setExperience(total-(ConstanteInt.MAX_XP_LVL.getValeur()*this.getLevel()));
+            }
+            else
+                this.setExperience(total);
+        }
+    }
+
+    public void equip(Item item){
+        Item itemEquip = null;
+        boolean isEquip = true;
+        if (this.getItems().size() == 0) {
+            this.getItems().add(item);
+            addItemStats(item);
+            Init.player.removeItem(item);
+        }
+        else {
+            for (int i = 0; i < this.getItems().size(); ++i) {
+                if (!(this.getItems().get(i).getName().equals(item.getName()))) {
+                    isEquip = false;
+                } else {
+                    itemEquip = this.getItems().get(i);
+                    isEquip = true;
+                    break;
+                }
+            }
+            if (isEquip){
+                Init.player.addItem(itemEquip);
+                removeItemStats(itemEquip);
+                this.getItems().remove(itemEquip);
+
+                this.getItems().add(item);
+                addItemStats(item);
+                Init.player.removeItem(item);
+            }
+            else {
+                this.getItems().add(item);
+                addItemStats(item);
+                Init.player.removeItem(item);
+            }
+        }
+    }
+
+    private void addItemStats(Item item){
+        this.setHealthMax(this.getHealthMax()+item.getHealthBoost());
+        this.setCurrentHealth(this.getHealthMax());
+        this.setAttack(this.getAttack()+item.getAttackBoost());
+        this.setDefense(this.getDefense()+item.getDefenseBoost());
+        this.setSpeed(this.getSpeed()+item.getSpeedBoost());
+        this.setCrit(this.getCrit()+item.getCritBoost());
+    }
+
+    private void removeItemStats(Item item){
+        this.setHealthMax(this.getHealthMax()-item.getHealthBoost());
+        this.setCurrentHealth(this.getHealthMax());
+        this.setAttack(this.getAttack()-item.getAttackBoost());
+        this.setDefense(this.getDefense()-item.getDefenseBoost());
+        this.setSpeed(this.getSpeed()-item.getSpeedBoost());
+        this.setCrit(this.getCrit()-item.getCritBoost());
+    }
+
+    public void showItems(){
+        for (int i = 0; i < this.getItems().size(); ++i) {
+            System.out.println(this.getItems().get(i));
+        }
+    }
+
+    private ArrayList<Item> getItems() {
+        return items;
+    }
+
+    private void lvlUp(){
+        this.setLevel(this.getLevel()+1);
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+        setHealthbyLevelAndRank();
+        setAttackbyLevelAndRank();
+        setDefensebyLevelAndRank();
+    }
 
     public int getCurrentHealth() {
         return currentHealth;
@@ -87,31 +195,6 @@ public abstract class Monster {
 
     public int getRank() {
         return rank;
-    }
-
-    public void setRank(int rank) {
-        this.rank = rank;
-        setHealthbyLevelAndRank();
-        setAttackbyLevelAndRank();
-        setDefensebyLevelAndRank();
-    }
-
-    public void addExperience(int amount){
-        if (this.getLevel() < ConstanteInt.MAX_LVL_RANK1.getValeur() + (5*(this.getRank()-1))){
-            int total = this.getExperience()+amount;
-            if (total >= (ConstanteInt.MAX_XP_LVL.getValeur()*this.getLevel())){
-                this.setExperience(total-(ConstanteInt.MAX_XP_LVL.getValeur()*this.getLevel()));
-            }
-            else
-                this.setExperience(total);
-        }
-    }
-
-    public void setLevel(int level) {
-        this.level = level;
-        setHealthbyLevelAndRank();
-        setAttackbyLevelAndRank();
-        setDefensebyLevelAndRank();
     }
 
     public void setCrit(double crit) {
