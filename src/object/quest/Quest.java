@@ -1,4 +1,6 @@
 package object.quest;
+import constante.ConstanteDouble;
+import constante.ConstanteInt;
 import init.Init;
 import object.chest.Chest;
 import object.monster.Monster;
@@ -61,7 +63,55 @@ public class Quest {
         int counter = 3;
         while (counter != 0){
             this.getMonsters().add(Utils.getMonsterRandomly(Utils.getMonsterByRank(this.getLvl())));
+            this.getMonsters().get(this.getMonsters().size()-1-counter).setAttack((int) ((this.getMonsters().get(this.getMonsters().size()-1-counter).getAttack()) * ConstanteDouble.MOBS_WEAK.getValeur()));
             --counter;
+        }
+    }
+
+    private void setStats(Monster monster){
+        switch (this.getLvl()){
+            case 1 :
+                setStatsByDifficulty("easy",monster);
+                break;
+            case 2 :
+                monster.setLevel((ConstanteInt.MAX_LVL_RANK1.getValeur()+ (5*(monster.getRank())-1))/2);
+                setStatsByDifficulty("easy",monster);
+                break;
+            case 3 :
+                monster.setLevel(ConstanteInt.MAX_LVL_RANK1.getValeur()*monster.getRank());
+                setStatsByDifficulty("easy",monster);
+                break;
+            case 4 :
+                setStatsByDifficulty("easy",monster);
+                break;
+            case 5 :
+                setStatsByDifficulty("easy",monster);
+                break;
+            case 6 :
+                setStatsByDifficulty("easy",monster);
+                break;
+        }
+    }
+
+    private void setStatsByDifficulty(String difficulty, Monster monster){
+        switch (difficulty){
+            case "easy":
+                monster.setAttack((int) ((monster.getAttack()) * ConstanteDouble.MOBS_WEAK.getValeur()));
+                monster.setHealthMax((int) ((monster.getHealthMax()) * ConstanteDouble.MOBS_WEAK.getValeur()));
+                monster.setDefense((int) ((monster.getDefense()) * ConstanteDouble.MOBS_WEAK.getValeur()));
+                break;
+            case "normal":
+                monster.setAttack((int) ((monster.getAttack()) * ConstanteDouble.MOBS_NORMAL.getValeur()));
+                monster.setHealthMax((int) ((monster.getHealthMax()) * ConstanteDouble.MOBS_NORMAL.getValeur()));
+                monster.setDefense((int) ((monster.getDefense()) * ConstanteDouble.MOBS_NORMAL.getValeur()));
+                break;
+            case "hard":
+                monster.setAttack((int) ((monster.getAttack()) * ConstanteDouble.MOBS_HARD.getValeur()));
+                monster.setHealthMax((int) ((monster.getHealthMax()) * ConstanteDouble.MOBS_HARD.getValeur()));
+                monster.setDefense((int) ((monster.getDefense()) * ConstanteDouble.MOBS_HARD.getValeur()));
+                break;
+            default:
+                break;
         }
     }
 
@@ -165,6 +215,7 @@ public class Quest {
             questComplete();
         else
             System.out.println("Vous avez échoué votre quête :/");
+        Init.player.regenMonsters();
     }
 
     private void questComplete() {
@@ -175,6 +226,5 @@ public class Quest {
         }
         giveReward();
         System.out.println(rewardString);
-        Init.player.regenMonsters();
     }
 }
