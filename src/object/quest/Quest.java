@@ -13,6 +13,7 @@ public class Quest {
     private int lvl;
     private int xp;
     private int gold;
+    private int difficulty;
     boolean chestFound = false;
     private Chest chest;
     private String rewardString;
@@ -63,33 +64,49 @@ public class Quest {
         int counter = 3;
         while (counter != 0){
             this.getMonsters().add(Utils.getMonsterRandomly(Utils.getMonsterByRank(this.getLvl())));
-            this.getMonsters().get(this.getMonsters().size()-1-counter).setAttack((int) ((this.getMonsters().get(this.getMonsters().size()-1-counter).getAttack()) * ConstanteDouble.MOBS_WEAK.getValeur()));
             --counter;
+        }
+        for (int i = 0; i < this.getMonsters().size(); i++) {
+            setStats(this.getMonsters().get(i));
         }
     }
 
     private void setStats(Monster monster){
-        switch (this.getLvl()){
+        switch (this.getDifficulty()){
             case 1 :
                 setStatsByDifficulty("easy",monster);
                 break;
             case 2 :
-                monster.setLevel((ConstanteInt.MAX_LVL_RANK1.getValeur()+ (5*(monster.getRank())-1))/2);
+                monster.setLevel((ConstanteInt.MAX_LVL_RANK1.getValeur() + (5*(monster.getRank())-1))/2);
                 setStatsByDifficulty("easy",monster);
                 break;
             case 3 :
-                monster.setLevel(ConstanteInt.MAX_LVL_RANK1.getValeur()*monster.getRank());
+                monster.setLevel(ConstanteInt.MAX_LVL_RANK1.getValeur() + (5*(monster.getRank())-1));
                 setStatsByDifficulty("easy",monster);
                 break;
             case 4 :
-                setStatsByDifficulty("easy",monster);
+                setStatsByDifficulty("normal",monster);
                 break;
             case 5 :
-                setStatsByDifficulty("easy",monster);
+                monster.setLevel((ConstanteInt.MAX_LVL_RANK1.getValeur() + (5*(monster.getRank())-1))/2);
+                setStatsByDifficulty("normal",monster);
                 break;
             case 6 :
-                setStatsByDifficulty("easy",monster);
+                monster.setLevel((ConstanteInt.MAX_LVL_RANK1.getValeur() + (5*(monster.getRank())-1)));
+                setStatsByDifficulty("normal",monster);
                 break;
+            case 7 :
+                setStatsByDifficulty("hard",monster);
+                break;
+            case 8 :
+                monster.setLevel((ConstanteInt.MAX_LVL_RANK1.getValeur() + (5*(monster.getRank())-1))/2);
+                setStatsByDifficulty("hard",monster);
+                break;
+            case 9 :
+                monster.setLevel((ConstanteInt.MAX_LVL_RANK1.getValeur() + (5*(monster.getRank())-1)));
+                setStatsByDifficulty("hard",monster);
+                break;
+            default: break;
         }
     }
 
@@ -113,6 +130,14 @@ public class Quest {
             default:
                 break;
         }
+    }
+
+    public int getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(int difficulty) {
+        this.difficulty = difficulty;
     }
 
     public String getName() {
