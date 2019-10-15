@@ -2,24 +2,29 @@ package affichage;
 
 import constante.ConstanteInt;
 import init.Init;
+import object.expedition.Expedition;
 import object.monster.Monster;
 import object.player.Player;
 import object.quest.Quest;
 import object.utils.Utils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Test {
     private static Scanner sc = new Scanner(System.in);
     private static int choice;
+    private static ArrayList<Thread> listThread = new ArrayList<>();
+    private static ArrayList<Monster> listMonster = new ArrayList<>();
 
     public static void main(String[] args){
         Init.initialise();
         System.out.println("\n¤¤Bienvenue à toi jeune héros¤¤");
         while (true){
             System.out.println("\nQue souhaites-tu faire ?");
-            System.out.println("\n0. Fermer le jeu\n\n1. Partir pour une quête\n2. Autel d'invocation\n3. Afficher votre ménagerie\n4. Améliorer un objet");
+            System.out.println("\n0. Fermer le jeu\n\n1. Partir pour une quête\n2. Autel d'invocation\n3. Afficher votre ménagerie\n4. Améliorer un objet\n6. Expéditions");
             choice = sc.nextInt();
             switch (choice){
                 case 0:
@@ -53,15 +58,12 @@ public class Test {
                     break;
 
                 case 6:
-                    int count = 5;
-                    while (count > 0){
-                        Init.player.addItem(Init.fabriqueItem.getItem(3));
-                        Init.player.getMonsters().get(0).equip(Init.player.getItems().get(0));
-                        --count;
+                    if (Init.player.getMonsters().size() == 0){
+                        System.out.println("Vous ne possédez pas encore de monstre, allez faire un tour à l'autel d'invocation pour rencontrer vos premiers alliés");
                     }
-                    Init.player.showItems();
-                    System.out.println("affich stuff monstre");
-                    Init.player.getMonsters().get(0).showItems();
+                    else {
+                        expedition();
+                    }
                     break;
 
                 default: break;
@@ -79,6 +81,14 @@ public class Test {
         return sc.nextInt();
     }
 
+    private static Monster chooseMonsterExpe(){
+        System.out.println("Choisissez votre monstre pour l'expédition");
+        for (int i = 0; i < Init.player.getMonsters().size(); ++i) {
+            System.out.println(i+1 + ". " + Init.player.getMonsters().get(i));
+        }
+        return Init.player.getMonsters().get(sc.nextInt()-1);
+    }
+
     private static ArrayList<Monster> chooseMonster(){
         System.out.println("Choisissez vos monstres pour votre quête");
         for (int i = 0; i < Init.player.getMonsters().size(); ++i) {
@@ -89,6 +99,54 @@ public class Test {
         ints.add(Init.player.getMonsters().get(sc.nextInt()-1));
         ints.add(Init.player.getMonsters().get(sc.nextInt()-1));
         return ints;
+    }
+
+    private static void expedition(){
+        System.out.println("\n1. Partir en expédition\n2. Statut de mes expéditions");
+        int choiceExpe = sc.nextInt();
+        switch (choiceExpe){
+            case 1:
+                int difficulty = chooseExpeditionDifficulty();
+                Monster playerMonster = chooseMonsterExpe();
+                Thread thread = new Thread(new Expedition("Expedition lvl " + difficulty, difficulty, playerMonster));
+                listThread.add(thread);
+                listMonster.add(playerMonster);
+                thread.start();
+                break;
+
+            case 2:
+                if (listThread.size() == 0){
+                    System.out.println("Vous n'avez pas encore entammé d'expédition");
+                }
+                else{
+                    for (int i = 0; i < listThread.size(); ++i) {
+                        System.out.println("\n" + (i+1) + " " + listMonster.get(i));
+                    }
+                    cancelExpedition();
+                }
+                break;
+        }
+    }
+
+    private static void cancelExpedition(){
+        System.out.println("Voulez vous faire rentrer " + listMonster.get(sc.nextInt()-1) + "\n1. Oui   2.Non");
+        int choice = sc.nextInt();
+        switch (choice){
+            case 1:
+                listThread.get(choice-1).interrupt();
+                listThread.remove(choice -1);
+                listMonster.remove(choice-1);
+                break;
+
+            case 2:
+                System.out.println("trololol");
+                break;
+        }
+    }
+
+    private static int chooseExpeditionDifficulty(){
+        System.out.println("Choisissez la difficulté de l'expédition\n1   2   3");
+        return sc.nextInt();
     }
 
     private static void altarOfInvocation(){
