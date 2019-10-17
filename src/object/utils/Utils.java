@@ -5,6 +5,7 @@ import constante.ConstanteInt;
 import constante.ConstanteString;
 import init.Init;
 import object.monster.Monster;
+import object.player.Player;
 
 import java.util.ArrayList;
 
@@ -13,27 +14,27 @@ public class Utils {
         double rand = Math.random();
         if (object.equals("item")){
             if (Double.compare(rand, ConstanteDouble.DROP_RATE_RANK5.getValeur()) < 0)
-                Init.player.getItems().add(Init.fabriqueItem.getItem(5));
+                Player.getInstance().getItems().add(Init.fabriqueItem.getItem(5));
             else if (Double.compare(rand, ConstanteDouble.DROP_RATE_RANK4.getValeur()) < 0)
-                Init.player.getItems().add(Init.fabriqueItem.getItem(4));
+                Player.getInstance().getItems().add(Init.fabriqueItem.getItem(4));
             else if (Double.compare(rand, ConstanteDouble.DROP_RATE_RANK3.getValeur()) < 0)
-                Init.player.getItems().add(Init.fabriqueItem.getItem(3));
+                Player.getInstance().getItems().add(Init.fabriqueItem.getItem(3));
             else if(Double.compare(rand,ConstanteDouble.DROP_RATE_RANK2.getValeur()) < 0)
-                Init.player.getItems().add(Init.fabriqueItem.getItem(2));
+                Player.getInstance().getItems().add(Init.fabriqueItem.getItem(2));
             else if(Double.compare(rand,ConstanteDouble.DROP_RATE_RANK1.getValeur()) < 0)
-                Init.player.getItems().add(Init.fabriqueItem.getItem(1));
+                Player.getInstance().getItems().add(Init.fabriqueItem.getItem(1));
         }
         else{
             if (Double.compare(rand, ConstanteDouble.DROP_RATE_RANK5.getValeur()) < 0)
-                Init.player.addMonster(Utils.getMonsterRandomly(Utils.getMonsterByRank(5)));
+                Player.getInstance().addMonster(Utils.getMonsterRandomly(Utils.getMonsterByRank(5)));
             else if (Double.compare(rand, ConstanteDouble.DROP_RATE_RANK4.getValeur()) < 0)
-                Init.player.addMonster(Utils.getMonsterRandomly(Utils.getMonsterByRank(4)));
+                Player.getInstance().addMonster(Utils.getMonsterRandomly(Utils.getMonsterByRank(4)));
             else if (Double.compare(rand, ConstanteDouble.DROP_RATE_RANK3.getValeur()) < 0)
-                Init.player.addMonster(Utils.getMonsterRandomly(Utils.getMonsterByRank(3)));
+                Player.getInstance().addMonster(Utils.getMonsterRandomly(Utils.getMonsterByRank(3)));
             else if(Double.compare(rand,ConstanteDouble.DROP_RATE_RANK2.getValeur()) < 0)
-                Init.player.addMonster(Utils.getMonsterRandomly(Utils.getMonsterByRank(2)));
+                Player.getInstance().addMonster(Utils.getMonsterRandomly(Utils.getMonsterByRank(2)));
             else if(Double.compare(rand,ConstanteDouble.DROP_RATE_RANK1.getValeur()) < 0)
-                Init.player.addMonster(Utils.getMonsterRandomly(Utils.getMonsterByRank(1)));
+                Player.getInstance().addMonster(Utils.getMonsterRandomly(Utils.getMonsterByRank(1)));
         }
     }
 

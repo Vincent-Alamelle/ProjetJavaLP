@@ -3,6 +3,7 @@ package object.monster;
 import constante.ConstanteInt;
 import init.Init;
 import object.item.Item;
+import object.player.Player;
 
 import java.util.ArrayList;
 
@@ -115,7 +116,7 @@ public abstract class Monster {
         if (this.getItems().size() == 0) {
             this.getItems().add(item);
             addItemStats(item);
-            Init.player.removeItem(item);
+            Player.getInstance().removeItem(item);
         }
         else {
             for (int i = 0; i < this.getItems().size(); ++i) {
@@ -128,18 +129,18 @@ public abstract class Monster {
                 }
             }
             if (isEquip){
-                Init.player.addItem(itemEquip);
+                Player.getInstance().addItem(itemEquip);
                 removeItemStats(itemEquip);
                 this.getItems().remove(itemEquip);
 
                 this.getItems().add(item);
                 addItemStats(item);
-                Init.player.removeItem(item);
+                Player.getInstance().removeItem(item);
             }
             else {
                 this.getItems().add(item);
                 addItemStats(item);
-                Init.player.removeItem(item);
+                Player.getInstance().removeItem(item);
             }
         }
     }

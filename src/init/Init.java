@@ -15,7 +15,6 @@ public class Init {
     public static final FabriqueMonstre fabriqueCabire = new FabriqueCabire();
     public static final FabriqueItem fabriqueItem = new FabriqueItem();
     public static ArrayList<Monster> monsters = new ArrayList<>();
-    public static Player player = new Player();
 
     public static void initialise(){
         monsters.add(fabriqueSuccubus.getMonster());
@@ -23,6 +22,6 @@ public class Init {
         monsters.add(fabriqueDragonet.getMonster());
         monsters.add(fabriqueSatyr.getMonster());
         monsters.add(fabriqueCabire.getMonster());
-        player.addFragmentStone(20);
+        Player.getInstance().addFragmentStone(20);
     }
 }

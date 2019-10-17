@@ -8,9 +8,20 @@ import object.utils.Utils;
 import java.util.ArrayList;
 
 public class Player {
+    private static Player player = null;
     private int gold, nbFragmentStone;
     private ArrayList<Monster> monsters = new ArrayList<>();
     private ArrayList<Item> items = new ArrayList<>();
+
+    private Player() {
+        this.gold = 0;
+        this.nbFragmentStone = 0;
+    }
+
+    public static Player getInstance(){
+        if (player == null) player = new Player();
+        return player;
+    }
 
     public void summon(){
         substractFragmentStone(ConstanteInt.SUMMON_COST.getValeur());

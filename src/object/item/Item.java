@@ -2,6 +2,7 @@ package object.item;
 
 import constante.ConstanteInt;
 import init.Init;
+import object.player.Player;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,7 +19,7 @@ public class Item {
     }
 
     public void lvlup(){
-        Init.player.substractGold(ConstanteInt.ITEM_PRICE_UP.getValeur() * (this.getLevel()+1));
+        Player.getInstance().substractGold(ConstanteInt.ITEM_PRICE_UP.getValeur() * (this.getLevel()+1));
         if (this.getAttackBoost() != 0)
             this.setAttackBoost(this.getAttackBoost()+ ConstanteInt.ITEM_ATTACK_UP.getValeur()*this.getRank());
         if (this.getHealthBoost() != 0)
