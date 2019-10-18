@@ -7,6 +7,8 @@ import object.item.Item;
 import object.monster.Monster;
 import object.player.Player;
 import object.quest.Quest;
+
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -17,9 +19,9 @@ public class Display {
         System.out.println("\n¤¤Bienvenue à toi jeune héros¤¤");
         while (true){
             System.out.println("\nQue souhaites-tu faire ?");
-            System.out.println("\nVous avez actuellement : " + Player.getInstance().getGold() + " Gold et " + Player.getInstance().getNbFragmentStone() + "fragments de pierre");
-            System.out.println("\n0. Fermer le jeu\n\n1. Partir pour une quête\n2. Autel d'invocation\n3. Afficher votre ménagerie\n4. Inventaire" +
-                    "\n5. Améliorer un objet\n6. Expéditions\n7. Equipement de vos monstres\n8. Enlever un objet d'un monstre");
+            System.out.println("Vous avez actuellement : " + Player.getInstance().getGold() + " Gold et " + Player.getInstance().getNbFragmentStone() + "fragments de pierre");
+            System.out.println("\n0. Fermer le jeu\n1. Partir pour une quête    2. Autel d'invocation    3. Afficher votre ménagerie    4. Inventaire" +
+                    "\n5. Améliorer un objet    6. Expéditions    7. Equipement de vos monstres    8. Enlever un objet d'un monstre");
             switch (sc.nextInt()){
                 case 0:
                     System.out.println("Fermer le jeu");
@@ -47,16 +49,7 @@ public class Display {
                 case 3: Player.getInstance().showMonsters();
                     break;
 
-                case 4:
-                    int choice;
-                    Player.getInstance().showItems();
-                    System.out.println("-1. Retour");
-                    System.out.println("Selectionnez un item pour l'équiper sur un de vos monstre");
-                    if ((choice = sc.nextInt()) == -1)break;
-                    Item item = Player.getInstance().getItems().get(choice);
-                    Player.getInstance().showMonsters();
-                    System.out.println("Sur qui voulez-vous equiper cet item");
-                    Player.getInstance().getMonsters().get(sc.nextInt()).equip(item);
+                case 4:inventory();
                     break;
 
                 case 5:
@@ -81,57 +74,93 @@ public class Display {
                         expedition();
                     }
                     break;
-                case 7:
-                    hasItem = false;
-                    for (Monster monster: Player.getInstance().getMonsters()) {
-                        if (monster.getItems().size() > 0) {
-                            hasItem = true;
-                            break;
-                        }
-                    }
-                    if (Player.getInstance().getMonsters().size() == 0 && Player.getInstance().isHasBegin())
-                        System.out.println("Allez invoquer des monstres à l'autel d'invocation!");
-                    else if (Player.getInstance().getMonsters().size() == 0)
-                        System.out.println("Il faut que vos monstres soient rentrés de l'expédition pour pouvoir inspecter leurs équipements");
-                    else if (!hasItem)
-                        System.out.println("Vos monstres n'ont pas d'objets équipés");
-                    else
-                        displayMonstersItems();
+                case 7:monsterEquipment();
                     break;
-                case 8:
-                    hasItem = false;
-                    for (Monster monster: Player.getInstance().getMonsters()) {
-                        if (monster.getItems().size() > 0) {
-                            hasItem = true;
-                            break;
-                        }
-                    }
-                    if (!hasItem)
-                        System.out.println("Vos monstres ne possèdent pas d'objets");
-                    else
-                        removeItemFromMonster();
+
+                case 8:removeMonsterEquipment();
                     break;
                 default: break;
             }
         }
     }
 
+    private static void removeMonsterEquipment(){
+        boolean hasItem = false;
+        for (Monster monster: Player.getInstance().getMonsters()) {
+            if (monster.getItems().size() > 0) {
+                hasItem = true;
+                break;
+            }
+        }
+        if (!hasItem)
+            System.out.println("Vos monstres ne possèdent pas d'objets");
+        else
+            removeItemFromMonster();
+    }
+
+    private static void monsterEquipment(){
+        boolean hasItem = false;
+        for (Monster monster: Player.getInstance().getMonsters()) {
+            if (monster.getItems().size() > 0) {
+                hasItem = true;
+                break;
+            }
+        }
+        if (Player.getInstance().getMonsters().size() == 0 && Player.getInstance().isHasBegin())
+            System.out.println("Allez invoquer des monstres à l'autel d'invocation!");
+        else if (Player.getInstance().getMonsters().size() == 0)
+            System.out.println("Il faut que vos monstres soient rentrés de l'expédition pour pouvoir inspecter leurs équipements");
+        else if (!hasItem)
+            System.out.println("Vos monstres n'ont pas d'objets équipés");
+        else
+            displayMonstersItems();
+    }
+
+    private static void inventory(){
+        if(Player.getInstance().getItems().size() == 0){
+            System.out.printf("Votre inventaire est vide :(\n");
+            return;
+        }
+        int choice;
+        String chaine = "-1. Retour\nSelectionnez un item pour l'équiper sur un de vos monstre";
+        Player.getInstance().showItems();
+        System.out.println(chaine);
+        if ((choice = sc.nextInt()) == -1)return;
+        while (choice < -1 || choice > Player.getInstance().getItems().size()){
+            Player.getInstance().showItems();
+            System.out.println(chaine);
+            choice = sc.nextInt();
+        }
+        Item item = Player.getInstance().getItems().get(choice);
+        Player.getInstance().showMonsters();
+        System.out.println("Sur qui voulez-vous equiper cet item");
+        Player.getInstance().getMonsters().get(sc.nextInt()).equip(item);
+    }
+
     private static void removeItemFromMonster(){
         Monster monster;
-        for (int i = 0; i < Player.getInstance().getMonsters().size(); i++) {
-            if (Player.getInstance().getMonsters().get(i).getItems().size() > 0)
-                System.out.println(i + ". " + Player.getInstance().getMonsters().get(i));
-        }
-        if ((monster = Player.getInstance().getMonsters().get(sc.nextInt())).getItems().size() <= 0)
-            System.out.println("Veuillez rentrer un chiffre affiché ci-dessus");
-        else {
-            for (int i = 0; i < monster.getItems().size(); ++i) {
-                System.out.println(i + ". " + monster.getItems().get(i));
+        ArrayList<Monster> monstersList = new ArrayList<>();
+        int count = 0;
+        for (int i = 0; i < Player.getInstance().getMonsters().size(); ++i) {
+            if (Player.getInstance().getMonsters().get(i).getItems().size() > 0) {
+                System.out.println(count + ". " + Player.getInstance().getMonsters().get(i));
+                monstersList.add(Player.getInstance().getMonsters().get(i));
+                ++count;
             }
-            int choice = sc.nextInt();
-            while(choice < 0 || choice >= monster.getItems().size())
+        }
+        int choice = sc.nextInt();
+        while (true){
+            if (choice >= 0 && choice < monstersList.size()) {
+                monster = monstersList.get(choice);
+                for (int i = 0; i < monster.getItems().size(); ++i) {
+                    System.out.println(i + ". " + monster.getItems().get(i));
+                }
                 choice = sc.nextInt();
-            monster.unequip(monster.getItems().get(choice));
+                while (choice < 0 || choice >= monster.getItems().size())
+                    choice = sc.nextInt();
+                monster.unequip(monster.getItems().get(choice));
+                break;
+            }
         }
     }
 
@@ -146,9 +175,10 @@ public class Display {
 
     private static int questRank(){
         int choice;
-        System.out.println("Sur quelle île souhaitez-vous vous rendre ?\n-1. Retour     1. Le bois perdu    2.La colline dorée    3.Le sanctuaire    4.Le void    5. ?");
-        while ((choice = sc.nextInt()) < 1 || choice > 3) {
-            System.out.println("Sur quelle île souhaitez-vous vous rendre ?\n-1. Retour     1. Le bois perdu    2.La colline dorée    3.Le sanctuaire    4.Le void    5. ?");
+        String chaine = "Sur quelle île souhaitez-vous vous rendre ?\n-1. Retour     1. Le bois perdu    2.La colline dorée    3.Le sanctuaire    4.Le void    5.La palais pas laid";
+        System.out.println(chaine);
+        while ((choice = sc.nextInt()) < 1 || choice > 5) {
+            System.out.println(chaine);
             if (choice == -1)break;
         }
         return choice;
@@ -156,20 +186,30 @@ public class Display {
 
     private static int questDifficulty(){
         int choice;
-        System.out.println("Quel niveau de difficulté souhaitez-vous affronter ?\n-1. Retour    1   2   3   4   5   6   7   8   9");
+        String chaine = "Quel niveau de difficulté souhaitez-vous affronter ?\n-1. Retour    1   2   3   4   5   6   7   8   9";
+        System.out.println(chaine);
         while ((choice = sc.nextInt()) < 1 || choice > 9) {
-            System.out.println("Quel niveau de difficulté souhaitez-vous affronter ?\n-1. Retour    1   2   3   4   5   6   7   8   9");
+            System.out.println(chaine);
             if (choice == -1)break;
         }
         return choice;
     }
 
     private static Monster chooseMonsterExpe(){
-        System.out.println("Choisissez votre monstre pour l'expédition");
+        int choice;
+        String chaine = "Choisissez votre monstre pour l'expédition\n-1. Retour";
+        System.out.println(chaine);
         for (int i = 0; i < Player.getInstance().getMonsters().size(); ++i) {
-            System.out.println(i+1 + ". " + Player.getInstance().getMonsters().get(i));
+            System.out.println(i + ". " + Player.getInstance().getMonsters().get(i));
         }
-        return Player.getInstance().getMonsters().get(sc.nextInt()-1);
+        while ((choice = sc.nextInt()) < 0 || choice >=  Player.getInstance().getMonsters().size()){
+            if(choice == -1) return null;
+            System.out.println(chaine);
+            for (int i = 0; i < Player.getInstance().getMonsters().size(); ++i) {
+                System.out.println(i + ". " + Player.getInstance().getMonsters().get(i));
+            }
+        }
+        return Player.getInstance().getMonsters().get(choice);
     }
 
     private static ArrayList<Monster> chooseMonster(){
@@ -200,6 +240,7 @@ public class Display {
                 if (Player.getInstance().getMonsters().size() > 0){
                     int difficulty = chooseExpeditionDifficulty();
                     Monster playerMonster = chooseMonsterExpe();
+                    if (playerMonster == null) return;
                     System.out.println("Départ pour l'expédition");
                     Thread thread = new Thread(new Expedition(difficulty, playerMonster));
                     Init.listThread.add(thread);
@@ -274,6 +315,7 @@ public class Display {
 
     private static void upItem(){
         int item;
+        String chaine = "Sélectionnez un objet à améliorer :";
         ArrayList<Item> items = new ArrayList<>(Player.getInstance().getItems());
         for (int i = 0; i < Player.getInstance().getMonsters().size(); i++) {
             items.addAll(Player.getInstance().getMonsters().get(i).getItems());
@@ -285,10 +327,10 @@ public class Display {
             for (int i = 0; i < items.size(); i++) {
                 System.out.println(i + ". " + items.get(i));
             }
-            System.out.println("Sélectionnez un objet à améliorer :");
+            System.out.println(chaine);
             item = sc.nextInt();
             while (item >= items.size() || item < 0) {
-                System.out.println("Sélectionnez un objet à améliorer :");
+                System.out.println(chaine);
                 item = sc.nextInt();
             }
             System.out.println("Vous avez sélectionné cet objet :\n" + items.get(item));
