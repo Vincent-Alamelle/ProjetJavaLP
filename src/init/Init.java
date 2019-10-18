@@ -15,6 +15,8 @@ public class Init {
     public static final FabriqueMonstre fabriqueCabire = new FabriqueCabire();
     public static final FabriqueItem fabriqueItem = new FabriqueItem();
     public static ArrayList<Monster> monsters = new ArrayList<>();
+    public static ArrayList<Thread> listThread = new ArrayList<>();
+    public static ArrayList<Monster> listMonster = new ArrayList<>();
 
     public static void initialise(){
         monsters.add(fabriqueSuccubus.getMonster());

@@ -102,6 +102,8 @@ public class Utils {
                 break;
         }
         if (playerMonster.size() > 0){
+            System.out.println(3 - playerMonster.size() + "de vos monstres ont péri lors du combat.");
+            System.out.println("Voici les survivants:");
             for (Monster monster : playerMonster)
                 System.out.println(monster);
             return true;

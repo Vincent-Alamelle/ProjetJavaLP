@@ -140,6 +140,7 @@ public class Quest {
             this.setGold(this.getGold() + this.getChest().getGold());
             Player.getInstance().addFragmentStone(this.getChest().getInvocationShard());
             Player.getInstance().addItem(this.getChest().getItem());
+            System.out.println("vous avez obtenu : "+this.getChest().getItem());
         }
         Player.getInstance().addGold(this.getGold());
         for (int i = 0; i < this.getPlayerMonsters().size(); ++i) {

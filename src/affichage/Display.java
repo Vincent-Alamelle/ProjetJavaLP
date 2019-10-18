@@ -1,6 +1,7 @@
 package affichage;
 
 import constante.ConstanteInt;
+import init.Init;
 import object.expedition.Expedition;
 import object.monster.Monster;
 import object.player.Player;
@@ -10,13 +11,12 @@ import java.util.Scanner;
 
 public class Display {
     private static Scanner sc = new Scanner(System.in);
-    private static ArrayList<Thread> listThread = new ArrayList<>();
-    private static ArrayList<Monster> listMonster = new ArrayList<>();
 
     public static void launch(){
         System.out.println("\n¤¤Bienvenue à toi jeune héros¤¤");
         while (true){
             System.out.println("\nQue souhaites-tu faire ?");
+            System.out.println("\nVous avez actuellement : " + Player.getInstance().getGold() + " Gold et " + Player.getInstance().getNbFragmentStone() + "fragments de pierre");
             System.out.println("\n0. Fermer le jeu\n\n1. Partir pour une quête\n2. Autel d'invocation\n3. Afficher votre ménagerie\n4. Améliorer un objet\n6. Expéditions");
             switch (sc.nextInt()){
                 case 0:
@@ -101,18 +101,18 @@ public class Display {
                 int difficulty = chooseExpeditionDifficulty();
                 Monster playerMonster = chooseMonsterExpe();
                 Thread thread = new Thread(new Expedition(difficulty, playerMonster));
-                listThread.add(thread);
-                listMonster.add(playerMonster);
+                Init.listThread.add(thread);
+                Init.listMonster.add(playerMonster);
                 thread.start();
                 break;
 
             case 2:
-                if (listThread.size() == 0){
+                if (Init.listThread.size() == 0){
                     System.out.println("Vous n'avez pas encore entammé d'expédition");
                 }
                 else{
-                    for (int i = 0; i < listThread.size(); ++i) {
-                        System.out.println("\n" + (i+1) + " " + listMonster.get(i));
+                    for (int i = 0; i < Init.listThread.size(); ++i) {
+                        System.out.println("\n" + (i+1) + " " + Init.listMonster.get(i));
                     }
                     cancelExpedition();
                 }
@@ -122,13 +122,13 @@ public class Display {
     }
 
     private static void cancelExpedition(){
-        System.out.println("Voulez vous faire rentrer " + listMonster.get(sc.nextInt()-1) + "\n1. Oui   2.Non");
+        System.out.println("Voulez vous faire rentrer " + Init.listMonster.get(sc.nextInt()-1) + "\n1. Oui   2.Non");
         int choice = sc.nextInt();
         switch (choice){
             case 1:
-                listThread.get(choice-1).interrupt();
-                listThread.remove(choice -1);
-                listMonster.remove(choice-1);
+                Init.listThread.get(choice-1).interrupt();
+                Init.listThread.remove(choice -1);
+                Init.listMonster.remove(choice-1);
                 break;
             default: break;
         }
@@ -178,7 +178,7 @@ public class Display {
                 System.out.println("Sélectionnez un objet à améliorer :");
                 item = sc.nextInt();
             }
-            System.out.println("Vous avez sélectionné cet objet :\n" + Player.getInstance().getItems().get(item));
+            System.out.println("Vous avez sélectionné cet objet :\n" + Player.getInstance().getItems().get(item-1));
             System.out.println("Améliorer ? (cout: "+ ConstanteInt.ITEM_PRICE_UP.getValeur() * (Player.getInstance().getItems().get(item).getLevel()+1) +")1. oui  2. non");
             if (sc.nextInt() == 1){
                 if (Player.getInstance().getGold() >= ConstanteInt.ITEM_PRICE_UP.getValeur() * (Player.getInstance().getItems().get(item).getLevel()+1))

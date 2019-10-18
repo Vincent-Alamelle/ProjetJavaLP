@@ -102,8 +102,8 @@ public abstract class Monster {
         if (this.getLevel() < ConstanteInt.MAX_LVL_RANK1.getValeur() + (5*(this.getRank()-1))){
             int total = this.getExperience()+amount;
             if (total >= (ConstanteInt.MAX_XP_LVL.getValeur()*this.getLevel())){
-                lvlUp();
                 this.setExperience(total-(ConstanteInt.MAX_XP_LVL.getValeur()*this.getLevel()));
+                lvlUp();
             }
             else
                 this.setExperience(total);
