@@ -145,9 +145,9 @@ public class Display {
 
     private static int questRank(){
         int choice;
-        System.out.println("Sur quelle île souhaitez-vous vous rendre ?\n1. Le bois perdu    2.La colline dorée    3.Le sanctuaire    4.Le void    5. ?");
+        System.out.println("Sur quelle île souhaitez-vous vous rendre ?\n-1. Retour     1. Le bois perdu    2.La colline dorée    3.Le sanctuaire    4.Le void    5. ?");
         while ((choice = sc.nextInt()) < 1 || choice > 3) {
-            System.out.println("Sur quelle île souhaitez-vous vous rendre ?\n1. Le bois perdu    2.La colline dorée    3.Le sanctuaire    4.Le void    5. ?");
+            System.out.println("Sur quelle île souhaitez-vous vous rendre ?\n-1. Retour     1. Le bois perdu    2.La colline dorée    3.Le sanctuaire    4.Le void    5. ?");
             if (choice == -1)break;
         }
         return choice;
@@ -155,9 +155,9 @@ public class Display {
 
     private static int questDifficulty(){
         int choice;
-        System.out.println("Quel niveau de difficulté souhaitez-vous affronter ?\n1   2   3   4   5   6   7   8   9");
+        System.out.println("Quel niveau de difficulté souhaitez-vous affronter ?\n-1. Retour    1   2   3   4   5   6   7   8   9");
         while ((choice = sc.nextInt()) < 1 || choice > 9) {
-            System.out.println("Quel niveau de difficulté souhaitez-vous affronter ?\n1   2   3   4   5   6   7   8   9");
+            System.out.println("Quel niveau de difficulté souhaitez-vous affronter ?\n-1. Retour    1   2   3   4   5   6   7   8   9");
             if (choice == -1)break;
         }
         return choice;
