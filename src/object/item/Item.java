@@ -1,9 +1,7 @@
 package object.item;
 
 import constante.ConstanteInt;
-import init.Init;
 import object.player.Player;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 

@@ -7,8 +7,6 @@ import object.item.Item;
 import object.monster.Monster;
 import object.player.Player;
 import object.quest.Quest;
-
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -118,7 +116,7 @@ public class Display {
 
     private static void inventory(){
         if(Player.getInstance().getItems().size() == 0){
-            System.out.printf("Votre inventaire est vide :(\n");
+            System.out.println("Votre inventaire est vide :(\n");
             return;
         }
         int choice;

@@ -2,7 +2,6 @@ package init;
 
 import fabrique.item.FabriqueItem;
 import fabrique.monstre.*;
-import object.expedition.Expedition;
 import object.monster.Monster;
 import object.player.Player;
 

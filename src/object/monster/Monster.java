@@ -1,10 +1,8 @@
 package object.monster;
 
 import constante.ConstanteInt;
-import init.Init;
 import object.item.Item;
 import object.player.Player;
-
 import java.util.ArrayList;
 
 public abstract class Monster {
@@ -112,7 +110,7 @@ public abstract class Monster {
 
     public void equip(Item item){
         Item itemEquip = null;
-        boolean isEquip = true;
+        boolean isEquip = false;
         if (this.getItems().size() == 0) {
             this.getItems().add(item);
             addItemStats(item);
@@ -120,9 +118,7 @@ public abstract class Monster {
         }
         else {
             for (int i = 0; i < this.getItems().size(); ++i) {
-                if (!(this.getItems().get(i).getName().equals(item.getName()))) {
-                    isEquip = false;
-                } else {
+                if (this.getItems().get(i).getName().equals(item.getName())) {
                     itemEquip = this.getItems().get(i);
                     isEquip = true;
                     break;

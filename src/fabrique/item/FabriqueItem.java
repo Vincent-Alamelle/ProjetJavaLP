@@ -13,7 +13,7 @@ public class FabriqueItem {
     }
 
     private Item createItem(int rank){
-        ArrayList<String> pieces = new ArrayList<String>(Arrays.asList("head","weapon","chestplate","gloves","pants","boots"));
+        ArrayList<String> pieces = new ArrayList<>(Arrays.asList("head","weapon","chestplate","gloves","pants","boots"));
         double rand = Math.random() * pieces.size();
         Item item = new Item(pieces.get((int) rand),rank);
         item.setStat();

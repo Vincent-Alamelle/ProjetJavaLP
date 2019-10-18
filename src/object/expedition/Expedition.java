@@ -19,12 +19,12 @@ public class Expedition implements Runnable {
         return lvl;
     }
 
-    public Boolean getStop() {
+    private Boolean getStop() {
         return stop;
     }
 
-    public void setStop(Boolean stop) {
-        this.stop = stop;
+    private void setStop() {
+        this.stop = true;
     }
 
     @Override
@@ -41,7 +41,7 @@ public class Expedition implements Runnable {
                 case  3: playerMonster.setCurrentHealth(playerMonster.getCurrentHealth() - 3);
                     break;
                 default:
-                    this.setStop(true);
+                    this.setStop();
                     break;
             }
             try{
@@ -54,7 +54,7 @@ public class Expedition implements Runnable {
                 playerMonster.addExperience(timeSpent/2);
                 Player.getInstance().addFragmentStone(timeSpent/10);
                 System.out.println("Votre monstre est revenu.\nIl vous a rapporté " + timeSpent + " Gold.\nIl a aussi gagné " + timeSpent/2 + " points d'expérience\nIl a aussi trouvé " + timeSpent/10 + " fragments de pierres d'invocation");
-                this.setStop(true);
+                this.setStop();
             }
 
         }

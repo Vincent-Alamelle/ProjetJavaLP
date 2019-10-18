@@ -152,7 +152,8 @@ public class Quest {
         reward(getLvl());
         isChest();
         showMonsters();
-        if(Utils.fight(this.getPlayerMonsters(),this.getMonsters()))
+        ArrayList<Monster> fightingPlayerMonsters = new ArrayList<>(this.getPlayerMonsters());
+        if(Utils.fight(fightingPlayerMonsters,this.getMonsters()))
             questComplete();
         else
             System.out.println("Vous avez échoué votre quête :/");
