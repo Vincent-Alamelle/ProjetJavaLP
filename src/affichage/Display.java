@@ -181,11 +181,13 @@ public class Display {
             System.out.println(i + 1 + ". " + Player.getInstance().getMonsters().get(i));
         }
         while (count > 0) {
-            if ((choice = sc.nextInt()-1) >= 0 && choice < Player.getInstance().getMonsters().size()) {
+            if ((choice = sc.nextInt()-1) >= 0 && choice < Player.getInstance().getMonsters().size() && !ints.contains(Player.getInstance().getMonsters().get(choice))) {
                 ints.add(Player.getInstance().getMonsters().get(choice));
-                Player.getInstance().getMonsters().remove(Player.getInstance().getMonsters().get(choice));
                 --count;
             }
+        }
+        for (Monster monster: ints) {
+            Player.getInstance().getMonsters().remove(monster);
         }
         return ints;
     }
@@ -248,7 +250,7 @@ public class Display {
         System.out.println("Bienvenue dans l'autel d'invocation!\n");
         System.out.println("Vous avez actuellement " + Player.getInstance().getNbFragmentStone() + " fragments de pierre d'invocation.");
         System.out.println("Nombre d'invocations disponibles : " +Player.getInstance().getNbFragmentStone()/ConstanteInt.SUMMON_COST.getValeur());
-        System.out.println("Combien d'invocation voulez-vous réaliser ? (0. Retour)");
+        System.out.println("Combien d'invocation voulez-vous réaliser ? (-1. Retour)");
         int count = sc.nextInt();
         if (Player.getInstance().getNbFragmentStone() >= Player.getInstance().getNbFragmentStone()/ConstanteInt.SUMMON_COST.getValeur() * count) {
             while (count > 0) {
