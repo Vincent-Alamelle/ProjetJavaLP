@@ -146,6 +146,7 @@ public abstract class Monster {
     }
 
     public void unequip(Item item){
+        Player.getInstance().addItem(item);
         this.getItems().remove(item);
         this.removeItemStats(item);
     }
