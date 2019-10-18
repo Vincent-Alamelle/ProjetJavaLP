@@ -1,6 +1,6 @@
 package constante;
 
-public enum ConstanteString {
+public enum  ConstanteString {
     DEMON ("Demon"),
     SATYR ("Satyr"),
     CABIRE ("Cabire"),

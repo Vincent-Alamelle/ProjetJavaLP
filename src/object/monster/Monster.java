@@ -145,6 +145,10 @@ public abstract class Monster {
         }
     }
 
+    public void updateItemStats(Item item){
+        equip(item);
+    }
+
     private void addItemStats(Item item){
         this.setHealthMax(this.getHealthMax()+item.getHealthBoost());
         this.setCurrentHealth(this.getHealthMax());
@@ -169,7 +173,7 @@ public abstract class Monster {
         }
     }
 
-    private ArrayList<Item> getItems() {
+    public ArrayList<Item> getItems() {
         return items;
     }
 

@@ -2,11 +2,11 @@ package init;
 
 import fabrique.item.FabriqueItem;
 import fabrique.monstre.*;
+import object.expedition.Expedition;
 import object.monster.Monster;
 import object.player.Player;
 
 import java.util.ArrayList;
-
 public class Init {
     public static final FabriqueMonstre fabriqueSuccubus = new FabriqueSuccubus();
     public static final FabriqueMonstre fabriqueDragonet = new FabriqueDragonet();

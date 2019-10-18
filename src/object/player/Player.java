@@ -12,6 +12,7 @@ public class Player {
     private int gold, nbFragmentStone;
     private ArrayList<Monster> monsters = new ArrayList<>();
     private ArrayList<Item> items = new ArrayList<>();
+    private boolean hasBegin = true;
 
     private Player() {
         this.gold = 0;
@@ -24,7 +25,8 @@ public class Player {
     }
 
     public void summon(){
-        substractFragmentStone(ConstanteInt.SUMMON_COST.getValeur());
+        this.setHasBegin(false);
+        this.substractFragmentStone(ConstanteInt.SUMMON_COST.getValeur());
         Utils.obtenir("monster");
         this.getMonsters().get(this.getMonsters().size()-1).setPlayer();
         System.out.println("Félécitations vous venez d'invoquer : " + this.getMonsters().get(this.getMonsters().size()-1));
@@ -32,20 +34,28 @@ public class Player {
 
     public void showMonsters(){
         for (int i = 0; i < this.getMonsters().size(); ++i) {
-            System.out.println(this.getMonsters().get(i));
+            System.out.println(i + ". " + this.getMonsters().get(i));
         }
     }
 
     public void showItems(){
         for (int i = 0; i < this.getItems().size(); ++i) {
-            System.out.println(i+1 + ". " + this.getItems().get(i));
+            System.out.println(i + ". " + this.getItems().get(i));
         }
     }
 
     public void regenMonsters() {
-        for (int i = 0; i < this.getMonsters().size() -1; i++) {
+        for (int i = 0; i < this.getMonsters().size(); i++) {
             this.getMonsters().get(i).setCurrentHealth(this.getMonsters().get(i).getHealthMax());
         }
+    }
+
+    public boolean isHasBegin() {
+        return hasBegin;
+    }
+
+    public void setHasBegin(boolean hasBegin) {
+        this.hasBegin = hasBegin;
     }
 
     public void addFragmentStone(int amount){
@@ -66,6 +76,10 @@ public class Player {
 
     public void addMonster(Monster monster){
         this.getMonsters().add(monster);
+    }
+
+    public void removeMonster(Monster monster){
+        this.getMonsters().remove(monster);
     }
 
     public void addItem(Item item){
