@@ -156,6 +156,9 @@ public class Quest {
             questComplete();
         else
             System.out.println("Vous avez échoué votre quête :/");
+        for (Monster monster: this.getPlayerMonsters()) {
+            Player.getInstance().getMonsters().add(monster);
+        }
         Player.getInstance().regenMonsters();
     }
 
@@ -175,7 +178,7 @@ public class Quest {
             this.getMonsters().add(Utils.getMonsterRandomly(Utils.getMonsterByRank(this.getLvl())));
             --counter;
         }
-        for (int i = 0; i < this.getMonsters().size(); i++) {
+        for (int i = 0; i < this.getMonsters().size(); ++i) {
             setMonsterStats(this.getMonsters().get(i));
         }
     }

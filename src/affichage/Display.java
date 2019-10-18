@@ -18,7 +18,8 @@ public class Display {
         while (true){
             System.out.println("\nQue souhaites-tu faire ?");
             System.out.println("\nVous avez actuellement : " + Player.getInstance().getGold() + " Gold et " + Player.getInstance().getNbFragmentStone() + "fragments de pierre");
-            System.out.println("\n0. Fermer le jeu\n\n1. Partir pour une quête\n2. Autel d'invocation\n3. Afficher votre ménagerie\n4. Inventaire\n5. Améliorer un objet\n6. Expéditions\n7. Equipement de vos monstres");
+            System.out.println("\n0. Fermer le jeu\n\n1. Partir pour une quête\n2. Autel d'invocation\n3. Afficher votre ménagerie\n4. Inventaire" +
+                    "\n5. Améliorer un objet\n6. Expéditions\n7. Equipement de vos monstres\n8. Enlever un objet d'un monstre");
             switch (sc.nextInt()){
                 case 0:
                     System.out.println("Fermer le jeu");
@@ -182,6 +183,7 @@ public class Display {
         while (count > 0) {
             if ((choice = sc.nextInt()-1) >= 0 && choice < Player.getInstance().getMonsters().size()) {
                 ints.add(Player.getInstance().getMonsters().get(choice));
+                Player.getInstance().getMonsters().remove(Player.getInstance().getMonsters().get(choice));
                 --count;
             }
         }
