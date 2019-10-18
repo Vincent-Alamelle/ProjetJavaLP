@@ -81,10 +81,19 @@ public class Display {
                     }
                     break;
                 case 7:
+                    hasItem = false;
+                    for (Monster monster: Player.getInstance().getMonsters()) {
+                        if (monster.getItems().size() > 0) {
+                            hasItem = true;
+                            break;
+                        }
+                    }
                     if (Player.getInstance().getMonsters().size() == 0 && Player.getInstance().isHasBegin())
                         System.out.println("Allez invoquer des monstres à l'autel d'invocation!");
                     else if (Player.getInstance().getMonsters().size() == 0)
                         System.out.println("Il faut que vos monstres soient rentrés de l'expédition pour pouvoir inspecter leurs équipements");
+                    else if (!hasItem)
+                        System.out.println("Vos monstres n'ont pas d'objets équipés");
                     else
                         displayMonstersItems();
                     break;
