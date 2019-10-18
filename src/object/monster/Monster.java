@@ -145,6 +145,11 @@ public abstract class Monster {
         }
     }
 
+    public void unequip(Item item){
+        this.getItems().remove(item);
+        this.removeItemStats(item);
+    }
+
     public void updateItemStats(Item item){
         equip(item);
     }
@@ -169,7 +174,7 @@ public abstract class Monster {
 
     public void showItems(){
         for (int i = 0; i < this.getItems().size(); ++i) {
-            System.out.println(this.getItems().get(i));
+            System.out.println("    " + this.getItems().get(i));
         }
     }
 

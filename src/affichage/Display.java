@@ -18,7 +18,7 @@ public class Display {
         while (true){
             System.out.println("\nQue souhaites-tu faire ?");
             System.out.println("\nVous avez actuellement : " + Player.getInstance().getGold() + " Gold et " + Player.getInstance().getNbFragmentStone() + "fragments de pierre");
-            System.out.println("\n0. Fermer le jeu\n\n1. Partir pour une quête\n2. Autel d'invocation\n3. Afficher votre ménagerie\n4. Inventaire\n5. Améliorer un objet\n6. Expéditions");
+            System.out.println("\n0. Fermer le jeu\n\n1. Partir pour une quête\n2. Autel d'invocation\n3. Afficher votre ménagerie\n4. Inventaire\n5. Améliorer un objet\n6. Expéditions\n7. Equipement de vos monstres");
             switch (sc.nextInt()){
                 case 0:
                     System.out.println("Fermer le jeu");
@@ -58,7 +58,18 @@ public class Display {
                     Player.getInstance().getMonsters().get(sc.nextInt()).equip(item);
                     break;
 
-                case 5: upItem();
+                case 5:
+                    boolean hasItem = false;
+                    for (Monster monster: Player.getInstance().getMonsters()) {
+                        if (monster.getItems().size() > 0) {
+                            hasItem = true;
+                            break;
+                        }
+                    }
+                    if (Player.getInstance().getItems().size() == 0 && !hasItem)
+                        System.out.println("Vous n'avez pas d'objets, vous pouvez en récupérer en faisant des quêtes cependant ils sont rare");
+                    else
+                        upItem();
                     break;
 
                 case 6:
@@ -69,20 +80,78 @@ public class Display {
                         expedition();
                     }
                     break;
-
+                case 7:
+                    if (Player.getInstance().getMonsters().size() == 0 && Player.getInstance().isHasBegin())
+                        System.out.println("Allez invoquer des monstres à l'autel d'invocation!");
+                    else if (Player.getInstance().getMonsters().size() == 0)
+                        System.out.println("Il faut que vos monstres soient rentrés de l'expédition pour pouvoir inspecter leurs équipements");
+                    else
+                        displayMonstersItems();
+                    break;
+                case 8:
+                    hasItem = false;
+                    for (Monster monster: Player.getInstance().getMonsters()) {
+                        if (monster.getItems().size() > 0) {
+                            hasItem = true;
+                            break;
+                        }
+                    }
+                    if (!hasItem)
+                        System.out.println("Vos monstres ne possèdent pas d'objets");
+                    else
+                        removeItemFromMonster();
+                    break;
                 default: break;
             }
         }
     }
 
+    private static void removeItemFromMonster(){
+        Monster monster;
+        for (int i = 0; i < Player.getInstance().getMonsters().size(); i++) {
+            if (Player.getInstance().getMonsters().get(i).getItems().size() > 0)
+                System.out.println(i + ". " + Player.getInstance().getMonsters().get(i));
+        }
+        if ((monster = Player.getInstance().getMonsters().get(sc.nextInt())).getItems().size() <= 0)
+            System.out.println("Veuillez rentrer un chiffre affiché ci-dessus");
+        else {
+            for (int i = 0; i < monster.getItems().size(); ++i) {
+                System.out.println(i + ". " + monster.getItems().get(i));
+            }
+            int choice = sc.nextInt();
+            while(choice < 0 || choice >= monster.getItems().size())
+                choice = sc.nextInt();
+            monster.unequip(monster.getItems().get(choice));
+        }
+    }
+
+    private static void displayMonstersItems(){
+        for (Monster monster: Player.getInstance().getMonsters()) {
+            if (monster.getItems().size() > 0) {
+                System.out.println(monster);
+                monster.showItems();
+            }
+        }
+    }
+
     private static int questRank(){
+        int choice;
         System.out.println("Sur quelle île souhaitez-vous vous rendre ?\n1. Le bois perdu    2.La colline dorée    3.Le sanctuaire    4.Le void    5. ?");
-        return sc.nextInt();
+        while ((choice = sc.nextInt()) < 1 || choice > 3) {
+            System.out.println("Sur quelle île souhaitez-vous vous rendre ?\n1. Le bois perdu    2.La colline dorée    3.Le sanctuaire    4.Le void    5. ?");
+            if (choice == -1)break;
+        }
+        return choice;
     }
 
     private static int questDifficulty(){
+        int choice;
         System.out.println("Quel niveau de difficulté souhaitez-vous affronter ?\n1   2   3   4   5   6   7   8   9");
-        return sc.nextInt();
+        while ((choice = sc.nextInt()) < 1 || choice > 9) {
+            System.out.println("Quel niveau de difficulté souhaitez-vous affronter ?\n1   2   3   4   5   6   7   8   9");
+            if (choice == -1)break;
+        }
+        return choice;
     }
 
     private static Monster chooseMonsterExpe(){
@@ -94,14 +163,19 @@ public class Display {
     }
 
     private static ArrayList<Monster> chooseMonster(){
+        int choice;
+        int count = 3;
+        ArrayList<Monster> ints = new ArrayList<>();
         System.out.println("Choisissez vos monstres pour votre quête");
         for (int i = 0; i < Player.getInstance().getMonsters().size(); ++i) {
-            System.out.println(i+1 + ". " + Player.getInstance().getMonsters().get(i));
+            System.out.println(i + 1 + ". " + Player.getInstance().getMonsters().get(i));
         }
-        ArrayList<Monster> ints = new ArrayList<>();
-        ints.add(Player.getInstance().getMonsters().get(sc.nextInt()-1));
-        ints.add(Player.getInstance().getMonsters().get(sc.nextInt()-1));
-        ints.add(Player.getInstance().getMonsters().get(sc.nextInt()-1));
+        while (count > 0) {
+            if ((choice = sc.nextInt()-1) >= 0 && choice < Player.getInstance().getMonsters().size()) {
+                ints.add(Player.getInstance().getMonsters().get(choice));
+                --count;
+            }
+        }
         return ints;
     }
 
@@ -143,13 +217,10 @@ public class Display {
 
     private static void cancelExpedition(int choiceCancel){
         System.out.println("Voulez vous faire rentrer " + Init.listMonster.get(choiceCancel) + "\n1. Oui   2.Non");
-        switch (sc.nextInt()){
-            case 1:
-                Init.listThread.get(choiceCancel).interrupt();
-                Init.listThread.remove(choiceCancel);
-                Init.listMonster.remove(choiceCancel);
-                break;
-            default: break;
+        if(sc.nextInt() == 1){
+            Init.listThread.get(choiceCancel).interrupt();
+            Init.listThread.remove(choiceCancel);
+            Init.listMonster.remove(choiceCancel);
         }
     }
 
@@ -178,7 +249,9 @@ public class Display {
 
     private static void quest(){
         int rank = questRank();
+        if (rank == -1)return;
         int difficulty = questDifficulty();
+        if (difficulty == -1)return;
         Quest quest = new Quest("Quête de rang " + rank, rank, difficulty);
         System.out.println("Départ pour la quête !\n");
         quest.setPlayerMonsters(chooseMonster());
@@ -187,7 +260,7 @@ public class Display {
     }
 
     private static void upItem(){
-        int item = 0;
+        int item;
         ArrayList<Item> items = new ArrayList<>(Player.getInstance().getItems());
         for (int i = 0; i < Player.getInstance().getMonsters().size(); i++) {
             items.addAll(Player.getInstance().getMonsters().get(i).getItems());
