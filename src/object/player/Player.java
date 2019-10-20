@@ -27,7 +27,7 @@ public class Player {
     public void summon(){
         this.setHasBegin();
         this.substractFragmentStone(ConstanteInt.SUMMON_COST.getValeur());
-        Utils.obtenir("monster");
+        Utils.get("monster");
         this.getMonsters().get(this.getMonsters().size()-1).setPlayer();
         System.out.println("Félécitations vous venez d'invoquer : " + this.getMonsters().get(this.getMonsters().size()-1));
     }

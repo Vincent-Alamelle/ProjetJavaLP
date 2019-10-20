@@ -10,7 +10,7 @@ import object.player.Player;
 import java.util.ArrayList;
 
 public class Utils {
-    public static void obtenir(String object){
+    public static void get(String object){
         double rand = Math.random();
         if (object.equals("item")){
             if (Double.compare(rand, ConstanteDouble.DROP_RATE_RANK5.getValeur()) < 0)
@@ -110,5 +110,14 @@ public class Utils {
             }
         else
             return false;
+    }
+
+    public static boolean isDigit(String string){
+        char[] characters = string.toCharArray();
+        for (char character: characters) {
+            if(!Character.isDigit(character))
+                return false;
+        }
+        return true;
     }
 }
