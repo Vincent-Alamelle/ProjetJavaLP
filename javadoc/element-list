@@ -1,0 +1,16 @@
+unnamed package
+affichage
+constante
+fabrique.item
+fabrique.monstre
+init
+object.chest
+object.expedition
+object.item
+object.monster
+object.monster.demon
+object.monster.drake
+object.monster.slime
+object.player
+object.quest
+object.utils
