@@ -5,7 +5,7 @@ public enum  ConstanteString {
     SATYR ("Satyr"),
     CABIRE ("Cabire"),
     SUCCUBUS ("Succubus"),
-    BEAST ("Beast"),
+    //BEAST ("Beast"),
     SLIME ("Slime"),
     DRAKE ("Drake"),
     DRAGONET ("Dragonet");

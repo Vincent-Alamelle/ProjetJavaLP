@@ -25,7 +25,7 @@ public class Player {
     }
 
     public void summon(){
-        this.setHasBegin(false);
+        this.setHasBegin();
         this.substractFragmentStone(ConstanteInt.SUMMON_COST.getValeur());
         Utils.obtenir("monster");
         this.getMonsters().get(this.getMonsters().size()-1).setPlayer();
@@ -54,8 +54,8 @@ public class Player {
         return hasBegin;
     }
 
-    public void setHasBegin(boolean hasBegin) {
-        this.hasBegin = hasBegin;
+    private void setHasBegin() {
+        this.hasBegin = false;
     }
 
     public void addFragmentStone(int amount){

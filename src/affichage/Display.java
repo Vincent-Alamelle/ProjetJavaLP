@@ -258,6 +258,7 @@ public class Display {
                     for (int i = 0; i < Init.listThread.size(); ++i) {
                         System.out.println("\n" + (i+1) + " " + Init.listMonster.get(i));
                     }
+                    System.out.println("Sélectionnez le monstre que vous voulez faire rentrer.  -1. Retour");
                     int choice = sc.nextInt();
                     if (choice > 0 && choice <= Init.listMonster.size())
                         cancelExpedition(choice-1);

@@ -60,7 +60,7 @@ public enum ConstanteInt {
     ITEM_DEFENSE_UP (3),
     ITEM_SPEED_UP (1),
     ITEM_CRIT_UP (2),
-    ITEM_MAX_LVL (10),
+    //ITEM_MAX_LVL (10),
     ITEM_PRICE_UP (150),
 
     GOLD_IN_CHEST (50),
